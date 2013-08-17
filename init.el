@@ -19,6 +19,15 @@
 (setq *emacs23* (and (not *xemacs*) (or (>= emacs-major-version 23))) )
 (setq *emacs24* (and (not *xemacs*) (or (>= emacs-major-version 24))) )
 
+;----------------------------------------------------------------------------
+; Functions (load all files in defuns-dir)
+; Copied from https://github.com/magnars/.emacs.d/blob/master/init.el
+;----------------------------------------------------------------------------
+(setq defuns-dir (expand-file-name "~/.emacs.d/defuns"))
+(dolist (file (directory-files defuns-dir t "\\w+"))
+  (when (file-regular-p file)
+      (load file)))
+
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
@@ -29,4 +38,7 @@
 
 (package-initialize)
 
+;----------------------------------------------------------------------------
+; Load configs for specific features and modes
+;----------------------------------------------------------------------------
 (require 'init-modeline)
