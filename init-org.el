@@ -1,26 +1,23 @@
+(when (< emacs-major-version 24)
+  (require-package 'org))
+(require-package 'org-fstree)
+(require 'org-publish)
+(when *is-a-mac*
+  (require-package 'org-mac-link)
+  (require-package 'org-mac-iCal))
+
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(add-hook 'org-mode-hook 'turn-on-font-lock)
+(add-hook 'org-mode-hook
+          (lambda () (setq truncate-lines nil)))
+
+
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
-
-;; {{ export org-mode in Chinese into PDF
-;; @see http://freizl.github.io/posts/tech/2012-04-06-export-orgmode-file-in-Chinese.html
-;; and you need install texlive-xetex on different platforms
-;; To install texlive-xetex:
-;;    `sudo USE="cjk" emerge texlive-xetex` on Gentoo Linux
-(setq org-latex-to-pdf-process
-      '("xelatex -interaction nonstopmode -output-directory %o %f"
-        "xelatex -interaction nonstopmode -output-directory %o %f"
-        "xelatex -interaction nonstopmode -output-directory %o %f"))
-;; }}
-
-(if *is-a-mac*
-  ; make soffice visible when converting odt to doc
-  (setenv "PATH" (concat (getenv "PATH") "/Applications/LibreOffice.app/Contents/MacOS"))
-  )
 
 ;; Various preferences
 (setq org-log-done t
       org-completion-use-ido t
-      org-edit-src-content-indentation 0
       org-edit-timestamp-down-means-later t
       org-agenda-start-on-weekday nil
       org-agenda-span 14
@@ -28,10 +25,8 @@
       org-agenda-window-setup 'current-window
       org-fast-tag-selection-single-key 'expert
       org-export-kill-product-buffer-when-displayed t
-      org-export-odt-preferred-output-format "doc"
-      org-tags-column 80
-      ;org-startup-indented t
-      )
+      org-tags-column 80)
+
 
 ; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
 (setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
@@ -51,9 +46,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Save the running clock and all clock history when exiting Emacs, load it on startup
-;; @see http://orgmode.org/manual/Clocking-work-time.html
-(org-clock-persistence-insinuate)
-(setq org-clock-persist 'history)
+(setq org-clock-persistence-insinuate t)
+(setq org-clock-persist t)
 (setq org-clock-in-resume t)
 
 ;; Change task state to STARTED when clocking in
@@ -74,24 +68,18 @@
 (add-hook 'org-clock-out-hook 'sanityinc/hide-org-clock-from-header-line)
 (add-hook 'org-clock-cancel-hook 'sanityinc/hide-org-clock-from-header-line)
 
-(eval-after-load 'org-clock
-  '(progn
-     (define-key org-clock-mode-line-map [header-line mouse-2] 'org-clock-goto)
-     (define-key org-clock-mode-line-map [header-line mouse-1] 'org-clock-menu)))
+(after-load 'org-clock
+  (define-key org-clock-mode-line-map [header-line mouse-2] 'org-clock-goto)
+  (define-key org-clock-mode-line-map [header-line mouse-1] 'org-clock-menu))
 
 
 ;; ;; Show iCal calendars in the org agenda
-;; (when *is-a-mac*
-;;   (eval-after-load "org"
-;;     '(if *is-a-mac* (require 'org-mac-iCal)))
-;;   (setq org-agenda-include-diary t)
-;; 
-;;   (setq org-agenda-custom-commands
+;; (when (and *is-a-mac* (require 'org-mac-iCal nil t))
+;;   (setq org-agenda-include-diary t
+;;         org-agenda-custom-commands
 ;;         '(("I" "Import diary from iCal" agenda ""
-;;            ((org-agenda-mode-hook
-;;              (lambda ()
-;;                (org-mac-iCal)))))))
-;; 
+;;            ((org-agenda-mode-hook #'org-mac-iCal)))))
+
 ;;   (add-hook 'org-agenda-cleanup-fancy-diary-hook
 ;;             (lambda ()
 ;;               (goto-char (point-min))
@@ -103,41 +91,51 @@
 ;;                 (goto-char (match-beginning 0))
 ;;                 (save-excursion
 ;;                   (re-search-backward "^[0-9]+:[0-9]+-[0-9]+:[0-9]+ " nil t))
-;;                 (insert (match-string 0)))))
-;;   )
+;;                 (insert (match-string 0))))))
+
+(defun wl-org-agenda-to-appt ()
+  ;; Dangerous!!!  This might remove entries added by `appt-add' manually.
+  (org-agenda-to-appt t "TODO"))
+
+(wl-org-agenda-to-appt)
+(defadvice  org-agenda-redo (after org-agenda-redo-add-appts)
+  "Pressing `r' on the agenda will also add appointments."
+  (progn
+    (let ((config (current-window-configuration)))
+      (appt-check t)
+      (set-window-configuration config))
+    (wl-org-agenda-to-appt)))
+
+(ad-activate 'org-agenda-redo)
+
+(autoload 'remember "remember" nil t)
+(autoload 'remember-region "remember" nil t)
+(setq org-reverse-note-order t)
+(when (file-exists-p "~/gtd/")
+  (define-key global-map [(f8)] 'remember)
+  (setq remember-annotation-functions '(org-remember-annotation))
+  (setq remember-handler-functions '(org-remember-handler))
+  (add-hook 'remember-mode-hook 'org-remember-apply-template)
+
+  (setq org-directory "~/gtd/")
+  (setq org-remember-templates
+        `((?t "* TODO %? %^T\n  %i"
+              ,(expand-file-name "todo.org" org-directory) "Tasks")
+          (?m "* %U\n\n  %?%i\n  %a"
+              ,(expand-file-name "notes.org" org-directory) "Notes")))
+
+  (let ((todo (expand-file-name "todo.org" org-directory)))
+    (when (file-exists-p todo)
+      (add-to-list 'org-agenda-files todo))))
 
 
-(eval-after-load 'org
-   '(progn
-      (require 'org-exp)
-      (require 'org-clock)
-      ; @see http://irreal.org/blog/?p=671
-      (setq org-src-fontify-natively t)
-      ;;(require 'org-checklist)
-      (require 'org-fstree)
-      (setq org-ditaa-jar-path (format "%s%s" (if *cygwin* "c:/cygwin" "")
-                                       (expand-file-name "~/.emacs.d/elpa/contrib/scripts/ditaa.jar")) )
-      (defun soft-wrap-lines ()
-        "Make lines wrap at window edge and on word boundary,
-        in current buffer."
-        (interactive)
-        (setq truncate-lines nil)
-        (setq word-wrap t)
-        )
-      (add-hook 'org-mode-hook '(lambda ()
-                                  (setq evil-auto-indent nil)
-                                  (soft-wrap-lines)
-                                  ))))
-
-(defadvice org-open-at-point (around org-open-at-point-choose-browser activate)
-  (let ((browse-url-browser-function
-         (cond ((equal (ad-get-arg 0) '(4))
-                'browse-url-generic)
-               ((equal (ad-get-arg 0) '(16))
-                'choose-browser)
-               (t
-                (lambda (url &optional new)
-                  (w3m-browse-url url t))))))
-    ad-do-it))
+(after-load 'org
+  (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
+  (when *is-a-mac*
+    (define-key org-mode-map (kbd "M-h") nil))
+  (define-key org-mode-map (kbd "C-M-<up>") 'org-up-element)
+  (when *is-a-mac*
+    (autoload 'omlg-grab-link "org-mac-link")
+    (define-key org-mode-map (kbd "C-c g") 'omlg-grab-link)))
 
 (provide 'init-org)

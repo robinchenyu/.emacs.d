@@ -1,3 +1,10 @@
+(defmacro after-load (feature &rest body)
+  "After FEATURE is loaded, evaluate BODY."
+  (declare (indent defun))
+  `(eval-after-load ,feature
+     '(progn ,@body)))
+
+
 ;;----------------------------------------------------------------------------
 ;; Handier way to add modes to auto-mode-alist
 ;;----------------------------------------------------------------------------
@@ -71,21 +78,7 @@
 (defun browse-current-file ()
   "Open the current file as a URL using `browse-url'."
   (interactive)
-  (browse-url-generic (concat "file://" (buffer-file-name))))
-
-
-(require 'cl)
-
-(defmacro with-selected-frame (frame &rest forms)
-  (let ((prev-frame (gensym))
-        (new-frame (gensym)))
-    `(progn
-       (let* ((,new-frame (or ,frame (selected-frame)))
-              (,prev-frame (selected-frame)))
-         (select-frame ,new-frame)
-         (unwind-protect
-             (progn ,@forms)
-           (select-frame ,prev-frame))))))
+  (browse-url (concat "file://" (buffer-file-name))))
 
 
 (provide 'init-utils)

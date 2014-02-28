@@ -1,56 +1,44 @@
-;; -*- coding: utf-8 -*-
-(setq emacs-load-start-time (current-time))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d"))
+;;; This file bootstraps the configuration, which is divided into
+;;; a number of other files.
+
+(add-to-list 'load-path user-emacs-directory)
+(require 'init-benchmarking) ;; Measure startup time
 
 ;;----------------------------------------------------------------------------
 ;; Which functionality to enable (use t or nil for true and false)
 ;;----------------------------------------------------------------------------
-(setq *spell-check-support-enabled* t)
-(setq *macbook-pro-support-enabled* t)
-(setq *is-a-mac* (eq system-type 'darwin))
-(setq *is-carbon-emacs* (and *is-a-mac* (eq window-system 'mac)))
-(setq *is-cocoa-emacs* (and *is-a-mac* (eq window-system 'ns)))
-(setq *win32* (eq system-type 'windows-nt) )
-(setq *cygwin* (eq system-type 'cygwin) )
-(setq *linux* (or (eq system-type 'gnu/linux) (eq system-type 'linux)) )
-(setq *unix* (or *linux* (eq system-type 'usg-unix-v) (eq system-type 'berkeley-unix)) )
-(setq *linux-x* (and window-system *linux*) )
-(setq *xemacs* (featurep 'xemacs) )
-(setq *emacs23* (and (not *xemacs*) (or (>= emacs-major-version 23))) )
-(setq *emacs24* (and (not *xemacs*) (or (>= emacs-major-version 24))) )
+(defconst *spell-check-support-enabled* nil)
+(defconst *is-a-mac* (eq system-type 'darwin))
+(defconst *is-cocoa-emacs* (and *is-a-mac* (eq window-system 'ns)))
 
-;----------------------------------------------------------------------------
-; Functions (load all files in defuns-dir)
-; Copied from https://github.com/magnars/.emacs.d/blob/master/init.el
-;----------------------------------------------------------------------------
-(setq defuns-dir (expand-file-name "~/.emacs.d/defuns"))
-(dolist (file (directory-files defuns-dir t "\\w+"))
-  (when (file-regular-p file)
-      (load file)))
-;----------------------------------------------------------------------------
-; Load configs for specific features and modes
-;----------------------------------------------------------------------------
-(require 'init-modeline)
+;; (set-language-environment "UTF-8")
+;; (set-terminal-coding-system 'utf-8)
+;; (set-keyboard-coding-system 'utf-8)
+;; (prefer-coding-system 'utf-8)
+;; (list-coding-systems)
 
 ;;----------------------------------------------------------------------------
-;; Load configs for specific features and modes
+;; Bootstrap config
 ;;----------------------------------------------------------------------------
 (require 'init-compat)
 (require 'init-utils)
 (require 'init-site-lisp) ;; Must come before elpa, as it may provide package.el
-
-;; win32 auto configuration, assuming that cygwin is installed at "c:/cygwin"
-(if *win32*
-	(progn
-		(setq cygwin-mount-cygwin-bin-directory "c:/cygwin/bin")
-		(require 'setup-cygwin)
-		;(setenv "HOME" "c:/cygwin/home/someuser") ;; better to set HOME env in GUI
-		))
-
-(require 'init-elpa)
+(require 'init-elpa)      ;; Machinery for installing required packages
 (require 'init-exec-path) ;; Set up $PATH
+
+;;----------------------------------------------------------------------------
+;; Load configs for specific features and modes
+;;----------------------------------------------------------------------------
+
+(require-package 'wgrep)
+(require-package 'project-local-variables)
+(require-package 'diminish)
+(require-package 'scratch)
+(require-package 'mwe-log-commands)
+
 (require 'init-frame-hooks)
 (require 'init-xterm)
+(require 'init-themes)
 (require 'init-osx-keys)
 (require 'init-gui-frames)
 (require 'init-maxframe)
@@ -59,135 +47,77 @@
 (require 'init-isearch)
 (require 'init-uniquify)
 (require 'init-ibuffer)
-(require 'init-flymake)
-(require 'init-artbollocks-mode)
+(require 'init-flycheck)
+
 (require 'init-recentf)
 (require 'init-ido)
-(if *emacs24* (require 'init-helm))
 (require 'init-hippie-expand)
+(require 'init-auto-complete)
 (require 'init-windows)
 (require 'init-sessions)
 (require 'init-fonts)
 (require 'init-mmm)
-;(require 'init-growl)
+;; (require 'init-growl)
+
 (require 'init-editing-utils)
+
+(require 'init-darcs)
 (require 'init-git)
+
 (require 'init-crontab)
 (require 'init-textile)
 (require 'init-markdown)
 (require 'init-csv)
 (require 'init-erlang)
 (require 'init-javascript)
-(require 'init-sh)
 (require 'init-php)
 (require 'init-org)
-(require 'init-org-mime)
 (require 'init-nxml)
 (require 'init-css)
 (require 'init-haml)
 (require 'init-python-mode)
 (require 'init-haskell)
-(require 'init-ruby-mode)
-(if (not (boundp 'light-weight-emacs)) (require 'init-rails))
-;(require 'init-rcirc)
+;; (require 'init-ruby-mode)
+;; (require 'init-rails)
+(require 'init-sql)
 
-(require 'init-lisp)
-(require 'init-slime)
-(require 'init-clojure)
-(require 'init-common-lisp)
+(require 'init-paredit)
+;; (require 'init-lisp)
+;; (require 'init-slime)
+;; (require 'init-clojure)
+;; (require 'init-common-lisp)
 
 (when *spell-check-support-enabled*
   (require 'init-spelling))
 
 (require 'init-marmalade)
-
-;; Chinese inut method
-(require 'init-org2blog)
-;;(require 'init-fill-column-indicator) ;make auto-complete dropdown wierd
-(if (not (boundp 'light-weight-emacs)) (require 'init-yasnippet))
-;; Use bookmark instead
-;; (require 'init-better-registers) ; C-x j - jump to register
-(require 'init-zencoding-mode) ;behind init-better-register to override C-j
-(require 'init-yari)
-(require 'init-cc-mode)
-(require 'init-semantic)
-(require 'init-cmake-mode)
-(require 'init-csharp-mode)
-(require 'init-linum-mode)
-;(require 'init-delicious) ;make startup slow, I don't use delicious in w3m
-(require 'init-emacs-w3m)
-(if (not (boundp 'light-weight-emacs)) (require 'init-eim))
-(require 'init-thing-edit)
-(require 'init-which-func)
-(require 'init-keyfreq)
-;; (require 'init-gist)
-(require 'init-emacspeak)
-(require 'init-pomodoro)
-(require 'init-undo-tree)
-(require 'init-moz)
-(require 'init-gtags)
-;; use evil mode (vi key binding)
-(if (not (boundp 'light-weight-emacs)) (require 'init-evil))
 (require 'init-misc)
-(require 'init-ctags)
-(require 'init-ace-jump-mode)
-(require 'init-multiple-cursors)
-;; (require 'init-uml)
-(require 'init-sunrise-commander)
-(require 'init-bbdb)
-(require 'init-gnus)
-(require 'init-twittering-mode)
-(require 'init-weibo)
-;; itune cannot play flac, so I use mplayer+emms instead (updated, use mpd!)
-(if (not (boundp 'light-weight-emacs)) (if *is-a-mac* (require 'init-emms)) )
-(require 'init-lua-mode)
-(require 'init-doxygen)
-(require 'init-workgroups)
-(require 'init-move-window-buffer)
-(require 'init-term-mode)
-;; I'm fine with nxml-mode, so web-mode is not used
-;;(require 'init-web-mode)
-(require 'init-sr-speedbar)
-(require 'init-smartparens)
-;; Choose either auto-complete or company-mode by commenting one of below two lines!
-;; (require 'init-auto-complete) ; after init-yasnippeta to override TAB
-(require 'init-company)
-(require 'init-stripe-buffer)
-(require 'init-popwin)
-(require 'init-elnode)
+
+;; Extra packages which don't require any configuration
+
+(require-package 'gnuplot)
+(require-package 'lua-mode)
+(require-package 'htmlize)
+(require-package 'dsvn)
+(when *is-a-mac*
+  (require-package 'osx-location))
+(require-package 'regex-tool)
 
 ;;----------------------------------------------------------------------------
 ;; Allow access from emacsclient
 ;;----------------------------------------------------------------------------
-;; Don't use emacsclient, and this code make emacs start up slow
-;;(defconst --batch-mode (member "--batch-mode" command-line-args)
-;;          "True when running in batch-mode (--batch-mode command-line switch set).")
-;;
-;;(unless --batch-mode
-;;  (require 'server)
-;;  (when (and (= emacs-major-version 23)
-;;             (= emacs-minor-version 1)
-;;             (equal window-system 'w32))
-;;    ;; Suppress error "directory ~/.emacs.d/server is unsafe" on Windows.
-;;    (defun server-ensure-safe-dir (dir) "Noop" t))
-;;  (condition-case nil
-;;      (unless (server-running-p) (server-start))
-;;    (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
-;;    (error
-;;     (let* ((server-dir (if server-use-tcp server-auth-dir server-socket-dir)))
-;;       (when (and server-use-tcp
-;;                  (not (file-accessible-directory-p server-dir)))
-;;         (display-warning
-;;          'server (format "Creating %S" server-dir) :warning)
-;;         (make-directory server-dir t)
-;;         (server-start))))))
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 
 ;;----------------------------------------------------------------------------
 ;; Variables configured via the interactive 'customize' interface
 ;;----------------------------------------------------------------------------
-(if (file-readable-p (expand-file-name "~/.emacs.d/custom.el"))
-     (load-file (expand-file-name "~/.emacs.d/custom.el"))
-       nil)
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 
 ;;----------------------------------------------------------------------------
 ;; Allow users to provide an optional "init-local" containing personal settings
@@ -198,15 +128,83 @@
 ;;----------------------------------------------------------------------------
 ;; Locales (setting them earlier in this file doesn't work in X)
 ;;----------------------------------------------------------------------------
-;(require 'init-locales) ;does not work in cygwin
+(require 'init-locales)
 
 
-(when (require 'time-date nil t)
-   (message "Emacs startup time: %d seconds."
-    (time-to-seconds (time-since emacs-load-start-time)))
-   )
 
-;;; Local Variables:
-;;; no-byte-compile: t
-;;; End:
-(put 'erase-buffer 'disabled nil)
+;;Example setup:
+
+;; (add-to-list 'load-path "~/Emacs/emmet/")
+;; (require 'emmet-mode)
+(require-package 'emmet-mode)
+(add-hook 'sgml-mode-hook 'emmet-mode) ;; Auto-start on any markup modes
+(add-hook 'html-mode-hook 'emmet-mode)
+(add-hook 'css-mode-hook  'emmet-mode)
+
+
+;; (load "~/.emacs.d/site-lisp/nxhtml/autostart")
+;; (setq auto-mode-alist
+;;       (append '(("\\.html?$" . django-html-mumamo-mode)) auto-mode-alist))
+;; (setq mumamo-background-colors nil)
+;; (add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
+;; ;; Workaround the annoying warnings:
+;; ;; Warning (mumamo-per-buffer-local-vars):
+;; ;; Already 'permanent-local t: buffer-file-name
+;; (when (and (equal emacs-major-version 24)
+;;            (equal emacs-minor-version 3))
+;;   (eval-after-load "mumamo"
+;;     '(setq mumamo-per-buffer-local-vars
+;;            (delq 'buffer-file-name mumamo-per-buffer-local-vars)))
+;;   (eval-after-load "bytecomp"
+;;     '(add-to-list 'byte-compile-not-obsolete-vars
+;;                   'font-lock-beginning-of-syntax-function))
+;;   (eval-after-load "tramp-compat"
+;;     '(add-to-list 'byte-compile-not-obsolete-vars
+;;                   'font-lock-beginning-of-syntax-function)))
+
+
+
+(require-package 'openwith)
+(openwith-mode t)
+(require 'cygwin-mount)
+(cygwin-mount-activate)
+
+
+(message "init completed in %.2fms"
+         (sanityinc/time-subtract-millis (current-time) before-init-time))
+
+(require 'openvpn)
+(require 'init-uma)
+(require 'gtags-init)
+;;(autoload 'gtags-mode "gtags" "" t)
+(setq c-default-style "k&r"
+          c-basic-offset 4
+                  tab-width 4
+                  indent-tabs-mode t)
+
+;; hilight-symbol config
+(require 'highlight-symbol)
+(global-set-key [(ctrl f3)] 'highlight-symbol-at-point)
+(global-set-key [f3] 'highlight-symbol-next)
+(global-set-key [(shift f3)] 'highlight-symbol-prev)
+(global-set-key [(meta f3)] 'highlight-symbol-query-replace)
+
+;;(require 'sublimity-scroll)
+
+;; delete tailing whitespace when saving
+;; nuke trailing whitespaces when writing to a file
+(add-hook 'write-file-hooks 'delete-trailing-whitespace)
+
+(global-set-key (kbd "M-3") 'split-window-horizontally)
+(global-set-key (kbd "M-2") 'split-window-vertically)
+(global-set-key (kbd "M-1") 'delete-other-windows)
+(global-set-key (kbd "M-0") 'delete-window)
+(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "M-O") 'other-window-backward)
+(setq redisplay-dont-pause t)
+(require 'init-pclint)
+;; (require 'navi-mode)
+;; Local Variables:
+;; coding: utf-8
+;; no-byte-compile: t
+;; End:
