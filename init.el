@@ -166,8 +166,12 @@
 
 (require-package 'openwith)
 (openwith-mode t)
-(require 'cygwin-mount)
-(cygwin-mount-activate)
+
+
+(if (eq system-type 'windows)
+    (proc (require 'cygwin-mount)
+          (cygwin-mount-activate)))
+
 
 
 (message "init completed in %.2fms"
@@ -184,7 +188,9 @@
 
 ;; hilight-symbol config
 (require 'highlight-symbol)
-(global-set-key [(ctrl f3)] 'highlight-symbol-at-point)
+(if (eq system-type 'windows)
+        (global-set-key [(ctrl f3)] 'highlight-symbol-at-point)
+  (global-set-key [(super f3)] 'highlight-symbol-at-point))
 (global-set-key [f3] 'highlight-symbol-next)
 (global-set-key [(shift f3)] 'highlight-symbol-prev)
 (global-set-key [(meta f3)] 'highlight-symbol-query-replace)
