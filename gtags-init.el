@@ -54,5 +54,22 @@
      (define-key gtags-mode-map "\C-cd" 'gtags-update)
      ))
 
+;;; for custom find symbol
+(require 'thingatpt)
+
+(defun find-word ()
+  (interactive)
+  (let ((symbol (thing-at-point 'symbol)))
+    (message symbol)
+    ;; Setting process-setup-function makes exit-message-function work
+    ;; even when async processes aren't supported.
+    (compilation-start (concat "grep -bH -e " symbol " *")
+                       'grep-mode)))
+
+
+
+(global-set-key [f4] 'find-word)
+
+
 (provide 'gtags-init)
 ;;; gtags-init ends here

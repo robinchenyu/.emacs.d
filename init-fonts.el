@@ -20,8 +20,9 @@
 ;(set-default-font "Tahoma-10")
 ;(set-default-font "WenQuanYi Zen Hei-12")
 ;(set-default-font "Sans-11")
-(set-face-attribute 'default nil :font "consolas-10:weight=normal")
-(setq face-font-rescale-alist (list (cons "SimSun" 1.2)))
+(if (eq system-type 'windows)
+    (proc (set-face-attribute 'default nil :font "consolas-10:weight=normal")
+	  (setq face-font-rescale-alist (list (cons "SimSun" 1.2))))) 
 (setq-default line-spacing 0)
 
 (require 'cl)
