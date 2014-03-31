@@ -63,7 +63,7 @@
     (message symbol)
     ;; Setting process-setup-function makes exit-message-function work
     ;; even when async processes aren't supported.
-    (compilation-start (concat "grep -bH -e " symbol " *")
+    (compilation-start (concat "grep -nH -e " symbol " *")
                        'grep-mode)))
 
 
