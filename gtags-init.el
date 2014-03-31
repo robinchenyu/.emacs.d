@@ -55,12 +55,33 @@
      ))
 
 ;;; for custom find symbol
+(defvar g-buffer-stack nil)
+(defvar g-point-stack nil)
+
+(defun g-push-context ()
+  (setq g-buffer-stack (cons (current-buffer) g-buffer-stack))
+  (setq g-point-stack (cons (point) g-point-stack)))
+
+;; pop context from stack
+(defun g-pop-context ()
+  (interactive)
+  (if (not g-buffer-stack) nil
+    (let (buffer point)
+      (setq buffer (car g-buffer-stack))
+      (setq g-buffer-stack (cdr g-buffer-stack))
+      (setq point (car g-point-stack))
+      (setq g-point-stack (cdr g-point-stack))
+      (switch-to-buffer buffer)
+      (goto-char point))))
+
+
 (require 'thingatpt)
 
 (defun find-word ()
   (interactive)
   (let ((symbol (thing-at-point 'symbol)))
     (message symbol)
+    (g-push-context)
     ;; Setting process-setup-function makes exit-message-function work
     ;; even when async processes aren't supported.
     (compilation-start (concat "grep -nH -e " symbol " *")
@@ -69,6 +90,7 @@
 
 
 (global-set-key [f4] 'find-word)
+(global-set-key [(ctrl f4)] 'g-pop-context)
 
 
 (provide 'gtags-init)
