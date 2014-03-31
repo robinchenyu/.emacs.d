@@ -188,8 +188,8 @@
 
 ;; hilight-symbol config
 (require 'highlight-symbol)
-(if (eq system-type 'windows)
-        (global-set-key [(ctrl f3)] 'highlight-symbol-at-point)
+(if (or (eq system-type 'windows) (eq system-type 'cygwin))
+    (global-set-key [(ctrl f3)] 'highlight-symbol-at-point)
   (global-set-key [(super f3)] 'highlight-symbol-at-point))
 (global-set-key [f3] 'highlight-symbol-next)
 (global-set-key [(shift f3)] 'highlight-symbol-prev)
