@@ -96,13 +96,14 @@
     (g-push-context)
     ;; Setting process-setup-function makes exit-message-function work
     ;; even when async processes aren't supported.
-    (rgrep symbol)))
-
+    (let ((default-directory proj-dir))
+      (compilation-start (concat "grep -nHr -e " symbol " *")
+                         'grep-mode))))
 
 
 (global-set-key [f4] 'find-word)
 (global-set-key [(ctrl f4)] 'g-pop-context)
-(global-set-key [(shift f4)] 'rgrep)
+(global-set-key [(shift f4)] 'find-word1)
 
 
 (provide 'gtags-init)
