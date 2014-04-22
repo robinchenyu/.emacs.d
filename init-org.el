@@ -1,7 +1,7 @@
 (when (< emacs-major-version 24)
   (require-package 'org))
 (require-package 'org-fstree)
-(require 'org-publish)
+;; (require 'org-publish)
 (when *is-a-mac*
   (require-package 'org-mac-link)
   (require-package 'org-mac-iCal))
