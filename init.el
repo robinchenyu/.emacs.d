@@ -11,7 +11,8 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 (defconst *is-cocoa-emacs* (and *is-a-mac* (eq window-system 'ns)))
 
-;; (set-language-environment "UTF-8")
+(require 'init-env)
+;; (set-language-environment "GBK")
 ;; (set-terminal-coding-system 'utf-8)
 ;; (set-keyboard-coding-system 'utf-8)
 ;; (prefer-coding-system 'utf-8)
@@ -48,6 +49,7 @@
 (require 'init-uniquify)
 (require 'init-ibuffer)
 (require 'init-flycheck)
+(flycheck-mode nil)
 
 (require 'init-recentf)
 (require 'init-ido)
