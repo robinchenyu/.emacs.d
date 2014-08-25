@@ -1,3 +1,4 @@
+(setenv "LC_ALL" "zh_CN.GBK")
 (set-language-environment 'Chinese-GB)
 (set-keyboard-coding-system 'chinese-iso-8bit)
 (set-clipboard-coding-system 'chinese-iso-8bit)

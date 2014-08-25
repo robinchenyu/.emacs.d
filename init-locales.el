@@ -20,7 +20,7 @@
 ;; out of the box
 (defconst +lang+ (getenv "LANG"))
 
-(if (string-match "UTF-8" +lang+)
+(if (and +lang+ (string-match "UTF-8" +lang+))
     (set-utf8)
   (set-gbk))
 
