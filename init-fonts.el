@@ -11,7 +11,8 @@
 
 (add-hook 'after-init-hook 'sanityinc/maybe-use-default-font-for-symbols)
 
-
+(setq-default line-spacing 0)
+
 ;;; Changing font sizes
 ;(set-default-font "YaHei Consolas Hybrid-10")
 ;(set-default-font "FreeSans-10")
@@ -22,8 +23,7 @@
 ;(set-default-font "Sans-11")
 (if (eq system-type 'windows)
     (proc (set-face-attribute 'default nil :font "consolas-10:weight=normal")
-	  (setq face-font-rescale-alist (list (cons "SimSun" 1.2))))) 
-(setq-default line-spacing 0)
+	  (setq face-font-rescale-alist (list (cons "SimSun" 1.2)))))
 
 (require 'cl)
 

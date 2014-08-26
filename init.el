@@ -1,6 +1,7 @@
 ;;; This file bootstraps the configuration, which is divided into
 ;;; a number of other files.
 
+;;; Code:
 (add-to-list 'load-path user-emacs-directory)
 (require 'init-benchmarking) ;; Measure startup time
 
@@ -11,7 +12,7 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 (defconst *is-cocoa-emacs* (and *is-a-mac* (eq window-system 'ns)))
 
-(require 'init-env)
+;; (require 'init-env)
 ;; (set-language-environment "GBK")
 ;; (set-terminal-coding-system 'utf-8)
 ;; (set-keyboard-coding-system 'utf-8)
