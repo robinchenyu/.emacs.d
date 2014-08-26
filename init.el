@@ -175,6 +175,7 @@
     (proc (require 'cygwin-mount)
           (cygwin-mount-activate)))
 
+(require 'init-cygwin-compat)
 
 
 (message "init completed in %.2fms"

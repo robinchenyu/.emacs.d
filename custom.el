@@ -26,6 +26,7 @@
       (file))
      ("\\.docx?\\'" "/cygdrive/c/Program\\ Files/Microsoft\\ Office/Office12/WINWORD.exe"
       (file)))))
+ '(openwith-confirm-invocation t)
  '(openwith-mode t)
  '(org-agenda-files (quote ("~/gtd/uma.org" "~/gtd/todo.org")))
  '(safe-local-variable-values
