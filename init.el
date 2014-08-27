@@ -34,7 +34,7 @@
 (require 'init-frame-hooks)
 (require 'init-xterm)
 (require 'init-themes)
-(require 'init-osx-keys)
+(require 'init-keys)
 (require 'init-gui-frames)
 (require 'init-maxframe)
 (require 'init-proxies)
@@ -163,8 +163,6 @@
       tab-width 4
       indent-tabs-mode t)
 
-;; hilight-symbol config
-(require 'highlight-symbol)
 
 
 ;;(require 'sublimity-scroll)

@@ -38,7 +38,8 @@
 
 (global-set-key (kbd "C-x ^") 'join-line)
 
-
+;; hilight-symbol config
+(require 'highlight-symbol)
 (if (or (eq system-type 'windows) (eq system-type 'cygwin))
     (global-set-key [(ctrl f3)] 'highlight-symbol-at-point)
   (global-set-key [(super f3)] 'highlight-symbol-at-point))
@@ -49,4 +50,4 @@
 
 (define-key global-map "\C-x\C-r" 'rgrep)
 
-(provide 'init-osx-keys)
+(provide 'init-keys)
