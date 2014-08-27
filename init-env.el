@@ -1,0 +1,11 @@
+(setenv "LC_ALL" "zh_CN.GBK")
+(set-language-environment 'Chinese-GB)
+(set-keyboard-coding-system 'chinese-iso-8bit)
+(set-clipboard-coding-system 'chinese-iso-8bit)
+(set-terminal-coding-system 'chinese-iso-8bit)
+(set-buffer-file-coding-system 'chinese-iso-8bit)
+(set-default-coding-systems 'chinese-iso-8bit)
+(set-selection-coding-system 'chinese-iso-8bit)
+(setq locale-coding-system 'chinese-iso-8bit)
+
+(provide 'init-env)
