@@ -12,13 +12,6 @@
 (defconst *is-a-mac* (eq system-type 'darwin))
 (defconst *is-cocoa-emacs* (and *is-a-mac* (eq window-system 'ns)))
 
-;; (require 'init-env)
-;; (set-language-environment "GBK")
-;; (set-terminal-coding-system 'utf-8)
-;; (set-keyboard-coding-system 'utf-8)
-;; (prefer-coding-system 'utf-8)
-;; (list-coding-systems)
-
 ;;----------------------------------------------------------------------------
 ;; Bootstrap config
 ;;----------------------------------------------------------------------------
@@ -144,27 +137,7 @@
 (add-hook 'html-mode-hook 'emmet-mode)
 (add-hook 'css-mode-hook  'emmet-mode)
 
-
-;; (load "~/.emacs.d/site-lisp/nxhtml/autostart")
-;; (setq auto-mode-alist
-;;       (append '(("\\.html?$" . django-html-mumamo-mode)) auto-mode-alist))
-;; (setq mumamo-background-colors nil)
-;; (add-to-list 'auto-mode-alist '("\\.html$" . django-html-mumamo-mode))
-;; ;; Workaround the annoying warnings:
-;; ;; Warning (mumamo-per-buffer-local-vars):
-;; ;; Already 'permanent-local t: buffer-file-name
-;; (when (and (equal emacs-major-version 24)
-;;            (equal emacs-minor-version 3))
-;;   (eval-after-load "mumamo"
-;;     '(setq mumamo-per-buffer-local-vars
-;;            (delq 'buffer-file-name mumamo-per-buffer-local-vars)))
-;;   (eval-after-load "bytecomp"
-;;     '(add-to-list 'byte-compile-not-obsolete-vars
-;;                   'font-lock-beginning-of-syntax-function))
-;;   (eval-after-load "tramp-compat"
-;;     '(add-to-list 'byte-compile-not-obsolete-vars
-;;                   'font-lock-beginning-of-syntax-function)))
-
+(require 'clean-mode-line)
 
 
 (require-package 'openwith)
@@ -186,32 +159,20 @@
 (require 'gtags-init)
 ;;(autoload 'gtags-mode "gtags" "" t)
 (setq c-default-style "k&r"
-          c-basic-offset 4
-                  tab-width 4
-                  indent-tabs-mode t)
+      c-basic-offset 4
+      tab-width 4
+      indent-tabs-mode t)
 
 ;; hilight-symbol config
 (require 'highlight-symbol)
-(if (or (eq system-type 'windows) (eq system-type 'cygwin))
-    (global-set-key [(ctrl f3)] 'highlight-symbol-at-point)
-  (global-set-key [(super f3)] 'highlight-symbol-at-point))
-(global-set-key [f3] 'highlight-symbol-next)
-(global-set-key [(shift f3)] 'highlight-symbol-prev)
-(global-set-key [(meta f3)] 'highlight-symbol-query-replace)
 
 
 ;;(require 'sublimity-scroll)
 
 ;; delete tailing whitespace when saving
 ;; nuke trailing whitespaces when writing to a file
-(add-hook 'write-file-hooks 'delete-trailing-whitespace)
+(add-hook 'write-file-hooks 'esk-cleanup-buffer)
 
-(global-set-key (kbd "M-3") 'split-window-horizontally)
-(global-set-key (kbd "M-2") 'split-window-vertically)
-(global-set-key (kbd "M-1") 'delete-other-windows)
-(global-set-key (kbd "M-0") 'delete-window)
-(global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "M-O") 'other-window-backward)
 (setq redisplay-dont-pause t)
 (require 'init-pclint)
 ;; (require 'navi-mode)

@@ -1,4 +1,9 @@
+\#*
 *.elc
+.smex-items
+.session
+.emacs.desk*
+.bookmarks.el
 auto-save-list
 .svn
 ac-comphist.dat
