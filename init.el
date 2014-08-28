@@ -34,7 +34,6 @@
 (require 'init-frame-hooks)
 (require 'init-xterm)
 (require 'init-themes)
-(require 'init-keys)
 (require 'init-gui-frames)
 (require 'init-maxframe)
 (require 'init-proxies)
@@ -139,6 +138,8 @@
 (add-hook 'css-mode-hook  'emmet-mode)
 
 (require 'clean-mode-line)
+(require 'init-keys)
+(require 'init-highlight-symbols)
 
 
 (require-package 'openwith)

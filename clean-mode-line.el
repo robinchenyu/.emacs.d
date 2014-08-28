@@ -48,4 +48,6 @@ want to use in the modeline *in lieu of* the original.")
     (setq flymake-mode-line mode-line)
     (force-mode-line-update)))
 
+(setq mode-line-misc-info nil)
+
 (provide 'clean-mode-line)

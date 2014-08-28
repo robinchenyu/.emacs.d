@@ -38,14 +38,12 @@
 
 (global-set-key (kbd "C-x ^") 'join-line)
 
-;; hilight-symbol config
-(require 'highlight-symbol)
-(if (or (eq system-type 'windows) (eq system-type 'cygwin))
-    (global-set-key [(ctrl f3)] 'highlight-symbol-at-point)
-  (global-set-key [(super f3)] 'highlight-symbol-at-point))
-(global-set-key [f3] 'highlight-symbol-next)
-(global-set-key [(shift f3)] 'highlight-symbol-prev)
-(global-set-key [(meta f3)] 'highlight-symbol-query-replace)
+(defun my-define-keys (mode-maps def-keys)
+  (dolist (mode-map1 mode-maps)
+    (dolist (k def-keys)
+      (print `(,mode-map1 ,(car k) ,(cadr k)))
+      (define-key (symbol-value mode-map1) (kbd (car k)) (cadr k)))))
+
 
 (defun which-func-call ()
   (interactive)

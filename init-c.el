@@ -1,6 +1,6 @@
 ;;; Code:
-(define-key c-mode-base-map (kbd "C-c M-a") 'beginning-of-defun)
-(define-key c-mode-base-map (kbd "C-c M-e") 'end-of-defun)
+(define-key prog-mode-map (kbd "C-c M-a") 'beginning-of-defun)
+(define-key prog-mode-map (kbd "C-c M-e") 'end-of-defun)
 
 (add-hook 'c-mode-hook
           '(lambda()
