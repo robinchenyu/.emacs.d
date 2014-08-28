@@ -12,10 +12,10 @@
           '(lambda()
              (gtags-mode 1)))
 (add-hook 'gtags-select-mode-hook
-  '(lambda ()
-     (setq hl-line-face 'underline)
-     (hl-line-mode 1)
-))
+          '(lambda ()
+             (setq hl-line-face 'underline)
+             (hl-line-mode 1)
+             ))
 
 (defconst +gtag-name+ "*updategtags*")
 (defconst +gtag-proc+ "*updatetags*")
@@ -28,20 +28,20 @@
   (message "dir: %s %s" proj-dir proj-name)
   (let ((dir proj-dir)
         (version proj-name))
-  (with-current-buffer (get-buffer-create "*gtags-update*")
-    (let ((default-directory dir)
-          (proj-version version)
-          (cmd "sh"))
-      (if (compare-strings "uma" 0 3 proj-version 0 3)
+    (with-current-buffer (get-buffer-create "*gtags-update*")
+      (let ((default-directory dir)
+            (proj-version version)
+            (cmd "sh"))
+        (if (compare-strings "uma" 0 3 proj-version 0 3)
+            (progn
+              (start-process +gtag-proc+ +gtag-name+
+                             cmd "updateumatags.sh")
+              (message "update %s tags run updateumatags.sh dir: %s cmd: %s" version default-directory cmd))
           (progn
             (start-process +gtag-proc+ +gtag-name+
-                           cmd "updateumatags.sh")
-            (message "update %s tags run updateumatags.sh dir: %s cmd: %s" version default-directory cmd))
-        (progn
-          (start-process +gtag-proc+ +gtag-name+
-                         cmd "updatetags.sh")
-          (message " %s %s %s  %s tags" +gtag-proc+ +gtag-name+ cmd version)))
-      (set-process-sentinel (get-process +gtag-proc+) 'close-window)))))
+                           cmd "updatetags.sh")
+            (message " %s %s %s  %s tags" +gtag-proc+ +gtag-name+ cmd version)))
+        (set-process-sentinel (get-process +gtag-proc+) 'close-window)))))
 ;;(compare-strings "uma" 0 3 "uma-07" 0 3)
 (defun close-window (process event)
   "when update gtags, close buffer and window"
@@ -50,9 +50,9 @@
 
 
 (add-hook 'gtags-mode-hook
-  '(lambda ()
-     (define-key gtags-mode-map "\C-cd" 'gtags-update)
-     ))
+          '(lambda ()
+             (define-key gtags-mode-map "\C-cd" 'gtags-update)
+             ))
 
 ;;; for custom find symbol
 (defvar g-buffer-stack nil)
@@ -104,6 +104,14 @@
 (global-set-key [f4] 'find-word)
 (global-set-key [(ctrl f4)] 'g-pop-context)
 (global-set-key [(shift f4)] 'find-word1)
+
+(require 'gtags-init)
+;;(autoload 'gtags-mode "gtags" "" t)
+(setq c-default-style "k&r"
+      c-basic-offset 4
+      tab-width 4
+      indent-tabs-mode t)
+
 
 
 (provide 'gtags-init)

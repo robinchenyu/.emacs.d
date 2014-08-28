@@ -73,6 +73,7 @@
 (require 'init-haml)
 (require 'init-python-mode)
 (require 'init-haskell)
+(require 'init-c)
 ;; (require 'init-ruby-mode)
 ;; (require 'init-rails)
 (require 'init-sql)
@@ -156,14 +157,6 @@
 
 (require 'openvpn)
 (require 'init-uma)
-(require 'gtags-init)
-;;(autoload 'gtags-mode "gtags" "" t)
-(setq c-default-style "k&r"
-      c-basic-offset 4
-      tab-width 4
-      indent-tabs-mode t)
-
-
 
 ;;(require 'sublimity-scroll)
 

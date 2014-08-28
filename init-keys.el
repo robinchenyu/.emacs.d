@@ -47,6 +47,11 @@
 (global-set-key [(shift f3)] 'highlight-symbol-prev)
 (global-set-key [(meta f3)] 'highlight-symbol-query-replace)
 
+(defun which-func-call ()
+  (interactive)
+  (message (which-function)))
+
+(global-set-key [(ctrl f3)] 'which-func-call)
 
 (define-key global-map "\C-x\C-r" 'rgrep)
 

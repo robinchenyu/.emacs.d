@@ -28,11 +28,11 @@
       org-tags-column 80)
 
 
-; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
+                                        ; Refile targets include this file and any file contributing to the agenda - up to 5 levels deep
 (setq org-refile-targets (quote ((nil :maxlevel . 5) (org-agenda-files :maxlevel . 5))))
-; Targets start with the file name - allows creating level 1 tasks
+                                        ; Targets start with the file name - allows creating level 1 tasks
 (setq org-refile-use-outline-path (quote file))
-; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
+                                        ; Targets complete in steps so we start with filename, TAB shows the next level of targets etc
 (setq org-outline-path-complete-in-steps t)
 
 
@@ -113,9 +113,9 @@
 (setq org-reverse-note-order t)
 (when (file-exists-p "~/gtd/")
   (define-key global-map [(f8)] 'remember)
-  (setq remember-annotation-functions '(org-remember-annotation))
-  (setq remember-handler-functions '(org-remember-handler))
-  (add-hook 'remember-mode-hook 'org-remember-apply-template)
+  (setq remember-annotation-functions '(buffer-file-name))
+  (setq remember-handler-functions '(remember-append-to-file))
+  (add-hook 'remember-mode-hook 'remember-diary-extract-entries)
 
   (setq org-directory "~/gtd/")
   (setq org-remember-templates
