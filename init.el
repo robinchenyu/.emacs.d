@@ -78,10 +78,10 @@
 (require 'init-sql)
 
 (require 'init-paredit)
-;; (require 'init-lisp)
-;; (require 'init-slime)
+(require 'init-lisp)
+(require 'init-slime)
 ;; (require 'init-clojure)
-;; (require 'init-common-lisp)
+(require 'init-common-lisp)
 
 (when *spell-check-support-enabled*
   (require 'init-spelling))
@@ -140,7 +140,7 @@
 (require 'clean-mode-line)
 (require 'init-keys)
 (require 'init-highlight-symbols)
-
+(require 'gtags-init)
 
 (require-package 'openwith)
 (openwith-mode t)
@@ -163,7 +163,7 @@
 
 ;; delete tailing whitespace when saving
 ;; nuke trailing whitespaces when writing to a file
-(add-hook 'write-file-hooks 'esk-cleanup-buffer)
+;; (add-hook 'write-file-hooks 'esk-cleanup-buffer)
 
 (setq redisplay-dont-pause t)
 (require 'init-pclint)

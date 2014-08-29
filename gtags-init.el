@@ -105,7 +105,6 @@
 (global-set-key [(ctrl f4)] 'g-pop-context)
 (global-set-key [(shift f4)] 'find-word1)
 
-(require 'gtags-init)
 ;;(autoload 'gtags-mode "gtags" "" t)
 (setq c-default-style "k&r"
       c-basic-offset 4
