@@ -4,6 +4,7 @@
 
 (add-hook 'c-mode-hook
           '(lambda()
+             (which-func-mode t)
              (setq header-line-format which-func-format)))
 
 
