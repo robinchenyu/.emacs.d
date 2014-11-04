@@ -39,7 +39,7 @@
         (inhibit-file-name-operation operation))
     (apply operation args)))
 
-(defun slime-init-command (port-filename _coding-system)
+(defun slime-init-command1 (port-filename _coding-system)
   "Return a string to initialize Lisp."
   (let ((loader (if (file-name-absolute-p slime-backend)
                     slime-backend
@@ -52,6 +52,14 @@
                (funcall (read-from-string "swank-loader:init"))
                (funcall (read-from-string "swank:start-server")
                         ,(cygwin-convert-file-name-to-windows port-filename))))))
+;; (slime-init-command1 "swank-init.lisp" 'zh_CN.GBK)
+(defun ad-slime-init-command (orig-fun &rest args)
+  (message "slime-init-command args %S" args)
+  (if (eq system-type 'cygwin)
+      (apply #'slime-init-command1 args)
+    (apply orig-fun args)))
 
+
+(advice-add 'slime-init-command :around #'ad-slime-init-command)
 
 (provide 'init-cygwin-compat)
