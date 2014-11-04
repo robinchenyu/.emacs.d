@@ -4,6 +4,7 @@
 ;;; Code:
 (add-to-list 'load-path user-emacs-directory)
 (require 'init-benchmarking) ;; Measure startup time
+(ignore-errors (make-directory "~/.emacs.d/site-lisp"))
 
 ;;----------------------------------------------------------------------------
 ;; Which functionality to enable (use t or nil for true and false)
