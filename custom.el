@@ -22,7 +22,11 @@
  '(org-agenda-files (quote ("~/gtd/uma.org" "~/gtd/todo.org")))
  '(safe-local-variable-values
    (quote
-    ((proj-name . "linux3")
+    ((python-shell-interpreter . "~/Env/worktime/Scripts/python.exe")
+     (python-shell-prompt-output-regexp . "Out\\[[0-9]+\\]: ")
+     (python-shell-prompt-regexp . "In \\[[0-9]+\\]: ")
+     (python-shell-interpreter-args . "~/Env/worktime/project/manage.py shell")
+     (proj-name . "linux3")
      (proj . "linux3")
      (proj-dir . "/cygdrive/e/linux-3.14.1/linux-3.14.1/")
      (python-shell-interpreter-args . "/cygdrive/d/home/Env/mezproj/project/manage.py shell")
