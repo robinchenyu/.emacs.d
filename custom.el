@@ -16,16 +16,7 @@
  '(line-spacing 0)
  '(openwith-associations
    (quote
-    (("\\.pdf\\'" "acroread"
-      (file))
-     ("\\.mp3\\'" "xmms"
-      (file))
-     ("\\.\\(?:mpe?g\\|avi\\|wmv\\)\\'" "mplayer"
-      ("-idx" file))
-     ("\\.\\(?:jp?g\\|png\\)\\'" "display"
-      (file))
-     ("\\.docx?\\'" "/cygdrive/c/Program\\ Files/Microsoft\\ Office/Office12/WINWORD.exe"
-      (file)))))
+))
  '(openwith-confirm-invocation t)
  '(openwith-mode t)
  '(org-agenda-files (quote ("~/gtd/uma.org" "~/gtd/todo.org")))
