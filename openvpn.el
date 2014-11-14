@@ -3,20 +3,20 @@
 (defconst +vpn-proc+ "*vpn-proc*")
 (defconst +vpn-name+ "*vpn-status*")
 (defconst +vpn-home+ "/cygdrive/d/software/OpenVPNPortable")
-(defvar *vpn-proxy* "proxynj.zte.com.cn")
+(defconst *vpn-cmd+ (concat +vpn-home+ "/app/bin/openvpn"))
+(defvar *vpn-proxy* nil)
 
 (defun vpn-start ()
   "start openvpn directly"
   (with-current-buffer (get-buffer-create +vpn-name+)
     (let* ((default-directory (concat +vpn-home+ "/data/config/"))
-           (cmd "/cygdrive/d/software/OpenVPNPortable/app/bin/openvpn")
            (arg1 "--config")
            (config "./zte.ovpn")
            (arg2 "--http-proxy")
            (proxy-ip *vpn-proxy*))
       (progn
         (start-process +vpn-proc+ +vpn-name+
-                       cmd arg1 config arg2 proxy-ip "80" "auto")
+                       +vpn-cmd+ arg1 config arg2 proxy-ip "80" "auto")
         (message "start vpn %s" proxy-ip)
         (set-process-sentinel (get-process +vpn-proc+) 'vpn-dumped)))))
 
