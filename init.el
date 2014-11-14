@@ -41,7 +41,7 @@
 (require 'init-isearch)
 (require 'init-uniquify)
 (require 'init-ibuffer)
-(require 'init-flycheck)
+;; (require 'init-flycheck)
 (flycheck-mode nil)
 
 (require 'init-recentf)
@@ -168,6 +168,10 @@
 (require 'midnight)
 (midnight-delay-set 'midnight-delay "4:30am")
 
+  (require 'guile-scheme)
+  (setq initial-major-mode 'scheme-interaction-mode)
+
+
 (setq redisplay-dont-pause t)
 (require 'init-pclint)
 ;; (require 'navi-mode)
@@ -175,3 +179,6 @@
 ;; coding: utf-8
 ;; no-byte-compile: t
 ;; End:
+;; (require 'skype)
+;; (setq skype--my-user-handle "robin_chenyu")
+(require 'openvpn)
