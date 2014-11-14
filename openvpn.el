@@ -11,7 +11,7 @@
     (let* ((default-directory (concat +vpn-home+ "/data/config/"))
            (cmd "/cygdrive/d/software/OpenVPNPortable/app/bin/openvpn")
            (arg1 "--config")
-           (config "./office.ovpn")
+           (config "./zte.ovpn")
            (arg2 "--http-proxy")
            (proxy-ip *vpn-proxy*))
       (progn
@@ -32,8 +32,10 @@
   "when openvpn dumped, it would be called to resolv"
   (if (null process)
       (vpn-cmd event)
-    (message "vpn dumped")
-    (vpn-start)))
+    (progn
+      (message "vpn dumped")
+      (sleep-for 5)
+      (vpn-start))))
 
 ;; (vpn-cmd "stop")
 (defun vpn-cmd (cmd)
