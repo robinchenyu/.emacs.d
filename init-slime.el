@@ -55,4 +55,8 @@
 
 
 
+(if (eq system-type 'cygwin)
+    (progn (setq slime-to-lisp-filename-function 'cygwin-convert-file-name-to-windows)
+           (setq slime-from-lisp-filename-function 'cygwin-convert-file-name-from-windows)))
+
 (provide 'init-slime)

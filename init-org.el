@@ -138,4 +138,6 @@
     (autoload 'omlg-grab-link "org-mac-link")
     (define-key org-mode-map (kbd "C-c g") 'omlg-grab-link)))
 
+
+(setq org-M-RET-may-split-line nil)
 (provide 'init-org)
