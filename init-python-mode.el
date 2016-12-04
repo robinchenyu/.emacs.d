@@ -3,16 +3,16 @@
 		("SConscript\\'" . python-mode))
               auto-mode-alist))
 
-(require-package 'python-django)
-(require-package 'ipython)
-(require-package 'virtualenv)
-(require 'python-django)
-(global-set-key (kbd "C-x j") 'python-django-open-project)
+(require-package 'pip-requirements)
 
+(when (maybe-require-package 'anaconda-mode)
+  (after-load 'python
+    (add-hook 'python-mode-hook 'anaconda-mode)
+    (add-hook 'python-mode-hook 'anaconda-eldoc-mode))
+  (when (maybe-require-package 'company-anaconda)
+    (after-load 'company
+      (add-hook 'python-mode-hook
+                (lambda () (sanityinc/local-push-company-backend 'company-anaconda))))))
 
-(require 'init-ace-jump)
-(require 'init-key-chord)
-(require 'init-multiple-cursors)
-(require 'init-jedi)
 
 (provide 'init-python-mode)
