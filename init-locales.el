@@ -1,27 +1,22 @@
-(defun set-gbk ()
-  ;; gbk environment
-  ;;(set-language-environment "UTF-8")
-  (set-terminal-coding-system 'chinese-iso-8bit)
-  (set-keyboard-coding-system 'chinese-iso-8bit)
-  (prefer-coding-system 'chinese-iso-8bit)
-  (setq default-process-coding-system '(chinese-iso-8bit . chinese-iso-8bit))
-)
+(defun sanityinc/utf8-locale-p (v)
+  "Return whether locale string V relates to a UTF-8 locale."
+  (and v (string-match "UTF-8" v)))
 
-(defun set-utf8 ()
-  (set-terminal-coding-system 'utf-8)
-  (set-keyboard-coding-system 'utf-8)
-  (set-selection-coding-system 'utf-8)
-  (prefer-coding-system 'utf-8)
-  (setq default-process-coding-system '(utf-8 . utf-8))
+(defun sanityinc/locale-is-utf8-p ()
+  "Return t iff the \"locale\" command or environment variables prefer UTF-8."
+  (or (sanityinc/utf8-locale-p (and (executable-find "locale") (shell-command-to-string "locale")))
+      (sanityinc/utf8-locale-p (getenv "LC_ALL"))
+      (sanityinc/utf8-locale-p (getenv "LC_CTYPE"))
+      (sanityinc/utf8-locale-p (getenv "LANG"))))
+
+(when (or window-system (sanityinc/locale-is-utf8-p))
+  (set-language-environment 'utf-8)
   (setq locale-coding-system 'utf-8)
-)
-
-;; Little hack to get proper Windows cyrillic language environment setup
-;; out of the box
-(defconst +lang+ (getenv "LANG"))
-
-(if (and +lang+ (string-match "UTF-8" +lang+))
-    (set-utf8)
-  (set-gbk))
+  (set-default-coding-systems 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-selection-coding-system (if (eq system-type 'windows-nt) 'utf-16-le 'utf-8))
+  (prefer-coding-system 'utf-8)
+  (setq system-time-locale "C")
+  (message "set locale to utf-8"))
 
 (provide 'init-locales)

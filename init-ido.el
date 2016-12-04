@@ -3,30 +3,22 @@
 (ido-everywhere t)
 (setq ido-enable-flex-matching t)
 (setq ido-use-filename-at-point nil)
-(setq ido-auto-merge-work-directories-length 0)
+(setq ido-auto-merge-work-directories-length -1)
 (setq ido-use-virtual-buffers t)
+(setq-default org-completion-use-ido t)
+(setq-default magit-completing-read-function 'magit-ido-completing-read)
 
-(when (eval-when-compile (>= emacs-major-version 24))
- (require-package 'ido-ubiquitous)
- (ido-ubiquitous-mode t))
-
-(require-package 'smex)
-(global-set-key (kbd "M-x") 'smex)
+(when (maybe-require-package 'ido-ubiquitous)
+  (ido-ubiquitous-mode t))
 
 (require-package 'idomenu)
 
 ;; Allow the same buffer to be open in different frames
 (setq ido-default-buffer-method 'selected-window)
 
-(when (eval-when-compile (< emacs-major-version 24))
- (defun sanityinc/ido-choose-from-recentf ()
-   "Use ido to select a recently opened file from the `recentf-list'"
-   (interactive)
-   (if (and ido-use-virtual-buffers (fboundp 'ido-toggle-virtual-buffers))
-       (ido-switch-buffer)
-     (find-file (ido-completing-read "Open file: " recentf-list nil t))))
+;; http://www.reddit.com/r/emacs/comments/21a4p9/use_recentf_and_ido_together/cgbprem
+(add-hook 'ido-setup-hook (lambda () (define-key ido-completion-map [up] 'previous-history-element)))
 
- (global-set-key [(meta f11)] 'sanityinc/ido-choose-from-recentf))
 
 
 
