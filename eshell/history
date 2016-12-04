@@ -1,0 +1,4 @@
+(mapcar (lambda (x) (1+ x)) '(1 2 3))
+(mapc (lambda (x) (1+ x)) '(1 2 3))
+(file-name-directory "/123")
+(file-name-directory "/123/")
