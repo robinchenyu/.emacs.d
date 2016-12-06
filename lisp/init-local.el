@@ -67,6 +67,17 @@
                          (setq deft-recursive nil)
                          (deft))))
 
+;; -------------------------------------------------------------------------
+;; customer funcs
+(defun cy-copy-word ()
+  (interactive)
+  (kill-new (thing-at-point 'word)))
+
+(setq w32-pass-lwindow-to-system nil)
+(setq w32-lwindow-modifier 'super) ; Left Windows key
+
+(global-set-key (kbd "s-w") 'cy-copy-word)
+
 (require 'cus-imagepaste)
 (require 'cus-org-fontsize)
 
