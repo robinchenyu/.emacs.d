@@ -77,6 +77,7 @@
 (setq w32-lwindow-modifier 'super) ; Left Windows key
 
 (global-set-key (kbd "s-w") 'cy-copy-word)
+(global-set-key (kbd "s-o") 'other-window)
 
 (require 'cus-imagepaste)
 (require 'cus-org-fontsize)
@@ -85,6 +86,7 @@
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
 
+(require 'init-evil)
 
 (provide 'init-local)
 ;;; init-local ends here

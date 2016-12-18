@@ -76,4 +76,28 @@
 (global-set-key (kbd "C-x v p") #'git-messenger:popup-message)
 
 
+;; fix magit-stage-untracked errors when chinese file name encoding failed
+(defun code-convert (str fr to)
+  (if (stringp str)
+      (encode-coding-string (decode-coding-string str fr) to)
+    (list (encode-coding-string (decode-coding-string (car str) fr) to))))
+
+(defun git-add-encode (&rest args)
+  (message "git-add-encode %S" args)
+  (let ((x (-flatten args)))
+    (if (string= (car x) "add")
+        (append (butlast x)
+                (code-convert (last x) 'utf-8 'gbk))
+      args)))
+
+(advice-add #'magit-call-git :filter-args #'git-add-encode)
+;; (magit-git "add")
+;; (setf myfunc 1)
+;; (add-function :before (magit-call-git myfunc) #'git-add-encode)
+;; (add-function :before #'magit-call-git #'git-add-encode)
+;; (advice-remove #'magit-call-git #'git-add-encode)
+
+;; (advice-add #'magit-process-git-arguments :filter-return #'git-add-encode)
+;; (advice-remove #'magit-process-git-arguments #'git-add-encode)
+
 (provide 'init-git)
