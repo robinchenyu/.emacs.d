@@ -78,6 +78,7 @@
 
 (global-set-key (kbd "s-w") 'cy-copy-word)
 (global-set-key (kbd "s-o") 'other-window)
+(global-set-key (kbd "s-i") 'imenu)
 
 (require 'cus-imagepaste)
 (require 'cus-org-fontsize)
@@ -86,7 +87,7 @@
 (keyfreq-mode 1)
 (keyfreq-autosave-mode 1)
 
-(require 'init-evil)
+;; (require 'init-evil)
 
 (provide 'init-local)
 ;;; init-local ends here

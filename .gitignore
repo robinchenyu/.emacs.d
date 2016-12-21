@@ -5,6 +5,7 @@
 /session.*
 /custom.el
 *.elc
+**/*.pyc
 CVS
 .svn
 *~
