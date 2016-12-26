@@ -1,4 +1,4 @@
-(require-package 'csv-mode)
+(require 'csv-mode)
 (require-package 'csv-nav)
 
 (add-auto-mode 'csv-mode "\\.[Cc][Ss][Vv]\\'")
@@ -26,7 +26,6 @@
                           line-width
                           rt)
                    line-width)))
-      (print rt)
       (forward-line 1)
       (if (= (point) (buffer-end 1))
           (setq run 0)
@@ -54,5 +53,7 @@
       (if (= (point) (buffer-end 1))
           (setq run 0)
         (beginning-of-line)))))
+
+(global-set-key (kbd "s-;") 'csv-table-align)
 
 (provide 'init-csv)
