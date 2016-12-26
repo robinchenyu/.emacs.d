@@ -80,6 +80,8 @@
 (global-set-key (kbd "s-o") 'other-window)
 (global-set-key (kbd "s-i") 'imenu)
 
+(require 'init-avp)
+
 (require 'cus-imagepaste)
 (require 'cus-org-fontsize)
 
