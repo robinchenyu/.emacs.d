@@ -358,5 +358,33 @@ typical word processor."
      (sql . nil)
      (sqlite . t))))
 
+;;; add func to perform imenu for all headings at one level
+(defun org-imenu-get-heading ()
+  "Produce the index for Imenu."
+  (mapc (lambda (x) (move-marker x nil)) org-imenu-markers)
+  (setq org-imenu-markers nil)
+  (let* ((n org-imenu-depth)
+         (re (concat "^" (org-get-limited-outline-regexp)))
+         (subs (make-vector (1+ n) nil))
+         m level head0 head)
+    (save-excursion
+      (save-restriction
+        (widen)
+        (goto-char (point-max))
+        (while (re-search-backward re nil t)
+          (setq level (org-reduced-level (funcall outline-level)))
+          (when (and (<= level n)
+                     (looking-at org-complex-heading-regexp)
+                     (setq head0 (org-match-string-no-properties 4)))
+            (setq head (org-link-display-format head0)
+                  m (org-imenu-new-marker))
+            (org-add-props head nil 'org-imenu-marker m 'org-imenu t)
+            (push (cons head m) (aref subs 1))))))
+    (aref subs 1)))
+
+(advice-add #'org-imenu-get-tree :override #'org-imenu-get-heading)
+
+
+
 
 (provide 'init-org)
