@@ -15,5 +15,15 @@
 
 (add-auto-mode 'conf-mode "Procfile")
 
+;; ------------------------------- add pinyin search for find-file ---------
+(require 'init-pinyin)
 
+(defun counsel--find-file-matcher-pinyin (orig-fun &optional regexp candidates)
+  "Return REGEXP-matching CANDIDATES.
+Skip some dotfiles unless `ivy-text' requires them."
+  (let ((pinyin-reg (pinyin-regexp regexp)))
+    (apply orig-fun (list pinyin-reg candidates) )))
+
+(advice-add 'counsel--find-file-matcher :around #'counsel--find-file-matcher-pinyin)
+;; --------------------------------------------------------------------------
 (provide 'init-misc)

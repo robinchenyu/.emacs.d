@@ -59,7 +59,7 @@ typical word processor."
   nil " Prose" nil
   (if prose-mode
       (progn
-        (setq truncate-lines nil)
+        (setq truncate-lines t)
         (setq word-wrap t)
         (setq cursor-type 'bar)
         (when (eq major-mode 'org)
@@ -71,7 +71,7 @@ typical word processor."
         (flyspell-mode 1)
         (when (fboundp 'visual-line-mode)
           (visual-line-mode 1)))
-    (kill-local-variable 'truncate-lines)
+    ;; (kill-local-variable 'truncate-lines)
     (kill-local-variable 'word-wrap)
     (kill-local-variable 'cursor-type)
     (kill-local-variable 'show-trailing-whitespace)
@@ -358,6 +358,8 @@ typical word processor."
      (sql . nil)
      (sqlite . t))))
 
+(require 'init-pinyin)
+
 ;;; add func to perform imenu for all headings at one level
 (defun org-imenu-get-heading ()
   "Produce the index for Imenu."
@@ -371,6 +373,7 @@ typical word processor."
       (save-restriction
         (widen)
         (goto-char (point-max))
+        (print re)
         (while (re-search-backward re nil t)
           (setq level (org-reduced-level (funcall outline-level)))
           (when (and (<= level n)
@@ -384,7 +387,74 @@ typical word processor."
 
 (advice-add #'org-imenu-get-tree :override #'org-imenu-get-heading)
 
+(setq imenu-name-lookup-function #'(lambda (str head)
+                                     (print "%S %S" str head)
+                                     (string= str head)))
 
+(defun imenu--in-alist2 (str alist)
+  "Check whether the string STR is contained in multi-level ALIST."
+  (print str)
+  (let (elt head tail res)
+    (setq res nil)
+    (while alist
+      (setq elt (car alist)
+            tail (cdr elt)
+            alist (cdr alist)
+            head (car elt))
+      ;; A nested ALIST element looks like
+      ;;   (INDEX-NAME (INDEX-NAME . INDEX-POSITION) ...)
+      ;; while a bottom-level element looks like
+      ;;   (INDEX-NAME . INDEX-POSITION)
+      ;; or
+      ;;   (INDEX-NAME INDEX-POSITION FUNCTION ARGUMENTS...)
+      ;; We are only interested in the bottom-level elements, so we need to
+      ;; recurse if TAIL is a nested ALIST.
+      (cond ((imenu--subalist-p elt)
+             (if (setq res (imenu--in-alist str tail))
+                 (setq alist nil)))
+            ((if imenu-name-lookup-function
+                 (funcall imenu-name-lookup-function str head)
+               (string= str head))
+             (setq alist nil res elt))))
+    res))
 
+(defun imenu--completion-buffer2 (index-alist &optional prompt)
+  "Let the user select from INDEX-ALIST in a completion buffer with PROMPT.
+
+Return one of the entries in index-alist or nil."
+  ;; Create a list for this buffer only when needed.
+  (print prompt)
+  (let ((name (thing-at-point 'symbol))
+        choice
+        (prepared-index-alist
+         (if (not imenu-space-replacement) index-alist
+           (mapcar
+            (lambda (item)
+              (cons (subst-char-in-string ?\s (aref imenu-space-replacement 0)
+                                          (car item))
+                    (cdr item)))
+            index-alist))))
+    (when (stringp name)
+      (setq name (or (imenu-find-default name prepared-index-alist) name)))
+    (cond (prompt)
+          ((and name (imenu--in-alist name prepared-index-alist))
+           (setq prompt (format "Index item (default %s): " name)))
+          (t (setq prompt "Index item: ")))
+    (let ((minibuffer-setup-hook minibuffer-setup-hook))
+      ;; Display the completion buffer.
+      (if (not imenu-eager-completion-buffer)
+          (add-hook 'minibuffer-setup-hook 'minibuffer-completion-help))
+      (setq name (completing-read prompt
+                                  prepared-index-alist
+                                  nil t nil 'imenu--history-list name)))
+
+    (when (stringp name)
+      (setq choice (assoc name prepared-index-alist))
+      (if (imenu--subalist-p choice)
+          (imenu--completion-buffer (cdr choice) prompt)
+        choice))))
+
+(advice-add #'imenu--in-alist :override #'imenu--in-alist2)
+(advice-add #'imenu--completion-buffer :override #'imenu--completion-buffer2)
 
 (provide 'init-org)

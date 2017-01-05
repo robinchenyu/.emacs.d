@@ -6,8 +6,10 @@
 (defun replace-home-prefix (path)
   (replace-regexp-in-string
    (replace-regexp-in-string "\\\\" "/" (getenv "HOME"))
-   "~" path))
-
+   "~/" path))
+;; (buffer-file-name (get-buffer "work.org"))
+;; (file-name-sans-extension (buffer-file-name (get-buffer "work.org")))
+;; (mkdir-get-buffer-pic-name )
 (defun mkdir-get-buffer-pic-name ()
   (interactive)
   (let* ((bf-name (or (buffer-file-name (current-buffer))  default-image-file))
