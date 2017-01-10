@@ -457,4 +457,207 @@ Return one of the entries in index-alist or nil."
 (advice-add #'imenu--in-alist :override #'imenu--in-alist2)
 (advice-add #'imenu--completion-buffer :override #'imenu--completion-buffer2)
 
+
+(defun org-display-inline-images (&optional include-linked refresh beg end)
+  "Display inline images.
+Normally only links without a description part are inlined, because this
+is how it will work for export.  When INCLUDE-LINKED is set, also links
+with a description part will be inlined.  This can be nice for a quick
+look at those images, but it does not reflect what exported files will look
+like.
+When REFRESH is set, refresh existing images between BEG and END.
+This will create new image displays only if necessary.
+BEG and END default to the buffer boundaries."
+  (interactive "P")
+  (unless refresh
+    (org-remove-inline-images)
+    (if (fboundp 'clear-image-cache) (clear-image-cache)))
+  (save-excursion
+    (save-restriction
+      (widen)
+      (setq beg (or beg (point-min)) end (or end (point-max)))
+      (goto-char beg)
+      (let ((re (concat "\\[\\[\\(\\(file:\\)\\|\\([./~]\\)\\)\\([^]\n]+?"
+                        (substring (org-image-file-name-regexp) 0 -2)
+                        "\\)\\]" (if include-linked "" "\\]")))
+            old file ov img)
+        (while (re-search-forward re end t)
+          (setq old (get-char-property-and-overlay (match-beginning 1)
+                                                   'org-image-overlay))
+          (setq file (expand-file-name
+                      (concat (or (match-string 3) "") (match-string 4))))
+          (setq attrwidth (if (or (listp org-image-actual-width)
+                                  (null org-image-actual-width))
+                              (save-excursion
+                                (save-match-data
+                                  (when (re-search-backward
+                                         "#\\+attr.*:width[ \t]+\\([^ ]+\\)"
+                                         (save-excursion
+                                           (re-search-backward "^[ \t]*$\\|\\`" nil t)) t)
+                                    (string-to-number (match-string 1))))))
+                width (or attrwidth 300))
+          (when (file-exists-p file)
+            (message "%S %S  " attrwidth width )
+            (let ((file-thumb (format "%s%st.png" (file-name-directory file) (file-name-base file) "t.png")))
+              (unless (file-exists-p file-thumb)
+                (shell-command (format "convert %s -thumbnail %sx%s %s"
+                                       file width width file-thumb)))
+              (if (and (car-safe old) refresh)
+                  (image-refresh (overlay-get (cdr old) 'display))
+                (setq img (save-match-data (create-image file-thumb)))
+                (when img
+                  (setq ov (make-overlay (match-beginning 0) (match-end 0)))
+                  (overlay-put ov 'display img)
+                  (overlay-put ov 'face 'default)
+                  (overlay-put ov 'org-image-overlay t)
+                  (overlay-put ov 'modification-hooks
+                               (list 'org-display-inline-remove-overlay))
+                  (push ov org-inline-image-overlays))))))))))
+(defun image-toggle-display-image ()
+  "Show the image of the image file.
+Turn the image data into a real image, but only if the whole file
+was inserted."
+  (unless (derived-mode-p 'image-mode)
+    (error "The buffer is not in Image mode"))
+  (let* ((filename (buffer-file-name))
+         (data-p (not (and filename
+                           (file-readable-p filename)
+                           (not (file-remote-p filename))
+                           (not (buffer-modified-p))
+                           (not (and (boundp 'archive-superior-buffer)
+                                     archive-superior-buffer))
+                           (not (and (boundp 'tar-superior-buffer)
+                                     tar-superior-buffer))
+                           ;; This means the buffer holds the
+                           ;; decrypted content (bug#21870).
+                           (not (and (boundp 'epa-file-encrypt-to)
+                                     (local-variable-p
+                                      'epa-file-encrypt-to))))))
+         (file-or-data (if data-p
+                           (string-make-unibyte
+                            (buffer-substring-no-properties (point-min) (point-max)))
+                         filename))
+         ;; If we have a `fit-width' or a `fit-height', don't limit
+         ;; the size of the image to the window size.
+         (edges (and (null image-transform-resize)
+                     (window-inside-pixel-edges
+                      (get-buffer-window (current-buffer)))))
+         (type (if (fboundp 'imagemagick-types)
+                   'imagemagick
+                 (image-type file-or-data nil data-p)))
+         (image (if (not edges)
+                    (progn
+                      (message "create image")
+                      (create-image file-or-data type data-p)
+                      (message "create image over"))
+                  (progn
+                    (message "create image with props")
+                    (create-image file-or-data type data-p
+                                  :max-width (- (nth 2 edges) (nth 0 edges))
+                                  :max-height (- (nth 3 edges) (nth 1 edges))))))
+         (inhibit-read-only t)
+         (buffer-undo-list t)
+         (modified (buffer-modified-p))
+         props)
+
+    ;; Discard any stale image data before looking it up again.
+    (message "before flush image")
+    (image-flush image)
+    (message "before flush image over")
+    (setq image (append image (image-transform-properties image)))
+    (setq props
+          `(display ,image
+                    ;; intangible ,image
+                    rear-nonsticky (display) ;; intangible
+                    read-only t front-sticky (read-only)))
+
+    (let ((buffer-file-truename nil)) ; avoid changing dir mtime by lock_file
+      (add-text-properties (point-min) (point-max) props)
+      (restore-buffer-modified-p modified))
+    ;; Inhibit the cursor when the buffer contains only an image,
+    ;; because cursors look very strange on top of images.
+    (setq cursor-type nil)
+    ;; This just makes the arrow displayed in the right fringe
+    ;; area look correct when the image is wider than the window.
+    (setq truncate-lines t)
+    ;; Disable adding a newline at the end of the image file when it
+    ;; is written with, e.g., C-x C-w.
+    (if (coding-system-equal (coding-system-base buffer-file-coding-system)
+                             'no-conversion)
+        (setq-local find-file-literally t))
+    ;; Allow navigation of large images.
+    (setq-local auto-hscroll-mode nil)
+    (setq image-type type)
+    (if (eq major-mode 'image-mode)
+        (setq mode-name (format "Image[%s]" type)))
+    (message "transform image check size")
+    ;; (image-transform-check-size)
+    (message "transform image check size over")
+    (if (called-interactively-p 'any)
+        (message "Repeat this command to go back to displaying the file as text"))))
+
+(defun image-mode ()
+  "Major mode for image files.
+You can use \\<image-mode-map>\\[image-toggle-display] or \\<image-mode-map>\\[image-toggle-hex-display]
+to toggle between display as an image and display as text or hex.
+
+Key bindings:
+\\{image-mode-map}"
+  (interactive)
+  (condition-case err
+      (progn
+        (unless (display-images-p)
+          (error "Display does not support images"))
+
+        (kill-all-local-variables)
+        (setq major-mode 'image-mode)
+
+        (if (not (image-get-display-property))
+            (progn
+              (image-toggle-display-image)
+              ;; If attempt to display the image fails.
+              (if (not (image-get-display-property))
+                  (error "Invalid image")))
+          ;; Set next vars when image is already displayed but local
+          ;; variables were cleared by kill-all-local-variables
+          (setq cursor-type nil truncate-lines t
+                image-type (plist-get (cdr (image-get-display-property)) :type)))
+
+        (setq mode-name (if image-type (format "Image[%s]" image-type) "Image"))
+        (use-local-map image-mode-map)
+
+        ;; Use our own bookmarking function for images.
+        (setq-local bookmark-make-record-function
+                    #'image-bookmark-make-record)
+
+        ;; Keep track of [vh]scroll when switching buffers
+        (image-mode-setup-winprops)
+
+        (add-hook 'change-major-mode-hook 'image-toggle-display-text nil t)
+        (add-hook 'after-revert-hook 'image-after-revert-hook nil t)
+        (message "before run image-mode-hook")
+        (run-mode-hooks 'image-mode-hook)
+        (message " run image-mode-hook over")
+        (let ((image (image-get-display-property))
+              (msg1 (substitute-command-keys
+                     "Type \\[image-toggle-display] or \\[image-toggle-hex-display] to view the image as "))
+              animated)
+          (cond
+;;;			     (substitute-command-keys
+;;;			      "\\[image-toggle-animation] to animate."))))
+           (t
+            (message "%s" (concat msg1 "text or hex."))))))
+
+    (error
+     (image-mode-as-text)
+     (funcall
+      (if (called-interactively-p 'any) 'error 'message)
+      "Cannot display image: %s" (cdr err)))))
+
+(defun org-preview-pic ()
+  (interactive)
+  (org-open-at-point)
+  (other-window 1))
+(global-set-key (kbd "M-<f9>") 'org-preview-pic)
+
 (provide 'init-org)
