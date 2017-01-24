@@ -4,16 +4,21 @@
 (defvar default-image-file "d:/images/untitled.png")
 
 (defun replace-home-prefix (path)
-  (replace-regexp-in-string
-   (replace-regexp-in-string "\\\\" "/" (getenv "HOME"))
-   "~/" path))
+  (interactive)
+  (message (replace-regexp-in-string
+            (replace-regexp-in-string "\\\\" "/" (getenv "HOME"))
+            "~/" path)))
+
+
 ;; (buffer-file-name (get-buffer "work.org"))
 ;; (file-name-sans-extension (buffer-file-name (get-buffer "work.org")))
+;; (message default-directory)
 ;; (mkdir-get-buffer-pic-name )
 (defun mkdir-get-buffer-pic-name ()
   (interactive)
   (let* ((bf-name (or (buffer-file-name (current-buffer))  default-image-file))
-         (file-dir (file-name-sans-extension bf-name))
+         (cur-dir default-directory)
+         (file-dir (file-relative-name (file-name-sans-extension bf-name) cur-dir))
          (fn-base (file-name-base bf-name))
          (idx 0)
          (new-file-name "")
@@ -22,7 +27,7 @@
       (mkdir file-dir)
       (setq idx (length (directory-files file-dir))))
     (while (> if-loop 0)
-      (setq new-file-name (format "%s/%s%d.jpg" file-dir fn-base idx))
+      (setq new-file-name (format "./%s/%s%d.png" file-dir fn-base idx))
       (if (file-exists-p new-file-name)
           (setq idx (1+ idx))
         (setq if-loop 0)))
@@ -32,7 +37,10 @@
   (interactive "*P")
   (let* ((file-name (mkdir-get-buffer-pic-name))
          (buf-str (format "[[%s]]" (replace-home-prefix file-name)))
-         (ret (call-process "python3" nil "*ImagePaste*" nil ip-script-path file-name)))
+         (ret (call-process "python3" nil "*ImagePaste*" nil ip-script-path (code-convert
+                                                                             file-name
+                                                                             'utf-8
+                                                                             'gbk))))
     (if (= ret 0)
         (progn
           (message "success")
