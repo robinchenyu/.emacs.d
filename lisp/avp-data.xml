@@ -1,0 +1,2753 @@
+<?xml version='1.0' encoding='GB2312'?>
+<DiameterDict>
+
+<DictionaryInfo name="BaseStack" version="2005" />
+
+<!-- OctetString Integer32 Integer64 Unsigned32 Unsigned64 Float32 Float64 Grouped -->
+(search-forward " code=" )
+<AvpDictutf
+    <!--下面是Diameter协议栈需要用到的AVP定义(Add by whg59747)-->
+    <AvpEntry name="AocMessage" code="38310" flag="0" vendorId="0" datatype="OctetString" />
+        <AvpEntry name="Inband-Security-Id" code="299" flag="64" vendorId="0" datatype="Unsigned32" />
+          <AvpEntry name="Host-IP-Address" code="257" flag="64" vendorId="0" datatype="OctetString" />
+          <AvpEntry name="Vendor-Id" code="266" flag="64" vendorId="0" datatype="Unsigned32" />
+          <AvpEntry name="Product-Name" code="269" flag="0" vendorId="0" datatype="OctetString" />
+          <AvpEntry name="Supported-Vendor-Id" code="265" flag="64" vendorId="0" datatype="Unsigned32" />
+          <AvpEntry name="Acct-Application-Id" code="259" flag="64" vendorId="0" datatype="Integer32" />
+          <AvpEntry name="Firmware-Revision" code="267" flag="0" vendorId="0" datatype="Unsigned32" />
+          <AvpEntry name="Vendor-Specific-Application-Id" code="260" flag="64" vendorId="0" datatype="Group" />
+           <!--下面是GPRS业务需要用到的新增AVP(Add by 唐文锋)begin-->
+          <AvpEntry name="3GPP-GPRS-Negotiated-QoS-Profile" code="5" flag="128" vendorId="81000" datatype="OctetString" />
+           <!--上面是GPRS业务需要用到的新增AVP(Add by 唐文锋)end-->
+
+           <!--下面是RBT&MMS业务需要用到的新增AVP(Add by zoucaili)-->
+          <AvpEntry name="TORO-MMS-Information" code="60440" flag="0" vendorId="0" datatype="Group" />
+
+          <AvpEntry name="TORO-Service-Information" code="60501" flag="0" vendorId="0" datatype="Group" />
+
+          <AvpEntry name="TORO-SourceID" code="60304" flag="0" vendorId="0" datatype="Group"/>
+
+          <AvpEntry name="TORO-IdType" code="60299" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+          <AvpEntry name="TORO-SourceData" code="60303" flag="128" vendorId="81000" datatype="OctetString" />
+
+          <AvpEntry name="TORO-RBT-Configuration-Data" code="60402" flag="128" vendorId="81000" datatype="OctetString" />
+
+          <AvpEntry name="TORO-Configuration-Channel-Type" code="60254" flag="128" vendorId="81000" datatype="Integer32" />
+
+          <AvpEntry name="TORO-Configuration-Channel-Data" code="60251" flag="128" vendorId="81000" datatype="OctetString" />
+
+          <AvpEntry name="TORO-RBT-Cost" code="60406" flag="128" vendorId="81000" datatype="OctetString" />
+
+          <AvpEntry name="TORO-RBT-Business-Sharing-Type" code="60409" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+          <AvpEntry name="TORO-RBT-Time" code="60408" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+          <AvpEntry name="TORO-DestinationID" code="60301" flag="0" vendorId="81000" datatype="Group" />
+
+          <AvpEntry name="TORO-DestinationData" code="60302" flag="128" vendorId="81000" datatype="OctetString" />
+
+          <AvpEntry name="TORO-SourceLocationID" code="60305" flag="0" vendorId="81000" datatype="Group" />
+
+          <AvpEntry name="TORO-AdditionalSourceID" code="60315" flag="0" vendorId="81000" datatype="Group" />
+
+          <AvpEntry name="TORO-EventTypeMMS" code="60441" flag="128" vendorId="81000" datatype="Integer32" />
+
+          <AvpEntry name="TORO-DestinationLocationID" code="60325" flag="0" vendorId="81000" datatype="Group" />
+
+          <AvpEntry name="TORO-Location-Type" code="60313" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+          <AvpEntry name="TORO-Location-Data" code="60306" flag="128" vendorId="81000" datatype="OctetString" />
+
+
+
+<!--   <AvpEntry name="TORO-desLocationID" code="60315" flag="0" vendorId="81000" datatype="Group" /> -->
+
+          <AvpEntry name="TORO-desLocation-Data" code="60308" flag="128" vendorId="81000" datatype="OctetString" />
+
+          <AvpEntry name="TORO-MessageSize" code="60365" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+          <AvpEntry name="TORO-ReadReplyReportRequested" code="60447" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+          <AvpEntry name="TORO-Furnished-Charging-Trigger-Information" code="60555" flag="128" vendorId="81000" datatype="OctetString" />
+
+          <AvpEntry name="TORO-Furnished-Charging-Information" code="60449" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <!--下面是业务需要用到的新增AVP(Add by whg59747)-->
+    <AvpEntry name="ChargeConfirmFlag" code="20347" flag="64" vendorId="0" datatype="Unsigned32" />
+
+
+    <!--Following are the AVP's defined in the Standard(RFC3588,RFC4006) /-->
+
+
+
+    <AvpEntry name="Acct-Multi-Session-Id" code="50" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Auth-Application-Id" code="258" flag="64" vendorId="0" datatype="Unsigned32" />
+
+    <AvpEntry name="CC-Correlation-Id" code="411" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="CC-Input-Octets" code="412" flag="64" vendorId="0" datatype="Unsigned64" />
+
+    <AvpEntry name="CC-Output-Octets" code="414" flag="64" vendorId="0" datatype="Unsigned64" />
+
+    <AvpEntry name="CC-Request-Number" code="415" flag="64" vendorId="0" datatype="Unsigned32" />
+
+    <AvpEntry name="CC-Request-Type" code="416" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="CC-Service-Specific-Units" code="417" flag="64" vendorId="0" datatype="Unsigned64" />
+
+    <AvpEntry name="CC-Session-Failover" code="418" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="CC-Sub-Session-Id" code="419" flag="64" vendorId="0" datatype="Unsigned64" />
+
+    <AvpEntry name="CC-Time" code="420" flag="64" vendorId="0" datatype="Unsigned32" />
+
+    <AvpEntry name="3GPP-SGSN-MCC-MNC" code="18" flag="64" vendorId="0" datatype="OctetString" />
+    <AvpEntry name="CC-Total-Octets" code="421" flag="64" vendorId="0" datatype="Unsigned64" />
+
+    <AvpEntry name="CC-Unit-Type" code="454" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="Check-Balance-Result" code="422" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="Cost-Unit" code="424" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Credit-Control-Failure-Handling" code="427" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="Currency-Code" code="425" flag="64" vendorId="0" datatype="Unsigned32" />
+
+    <AvpEntry name="Destination-Host" code="293" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Destination-Realm" code="283" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Direct-Debiting-Failure-Handling" code="428" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="Error-Message" code="281" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Error-Reporting-Host" code="294" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Event-Timestamp" code="55" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Exponent" code="429" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="Filter-Id" code="11" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Final-Unit-Action" code="449" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="G-S-U-Pool-Identifier" code="453" flag="64" vendorId="0" datatype="Unsigned32" />
+
+    <AvpEntry name="Multiple-Services-Indicator" code="455" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="Origin-Host" code="264" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Origin-Realm" code="296" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Origin-State-Id" code="278" flag="64" vendorId="0" datatype="Unsigned32" />
+
+    <AvpEntry name="Proxy-Host" code="280" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Proxy-State" code="33" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Rating-Group" code="432" flag="64" vendorId="0" datatype="Unsigned32" />
+
+    <AvpEntry name="Redirect-Address-Type" code="433" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="Redirect-Host" code="292" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Redirect-Host-Usage" code="261" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="Redirect-Max-Cache-Time" code="262" flag="64" vendorId="0" datatype="Unsigned32" />
+
+    <AvpEntry name="Redirect-Server-Address" code="435" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Restriction-Filter-Rule" code="438" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Result-Code" code="268" flag="64" vendorId="0" datatype="Unsigned32" />
+
+    <AvpEntry name="Requested-Action" code="436" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="Route-Record" code="282" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Service-Context-Id" code="461" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Service-Identifier" code="439" flag="64" vendorId="0" datatype="Unsigned32" />
+
+    <AvpEntry name="Session-Id" code="263" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Subscription-Id-Type" code="450" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="Subscription-Id-Data" code="444" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Tariff-Time-Change" code="451" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Tariff-Change-Usage" code="452" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="Termination-Cause" code="295" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="User-Equipment-Info-Type" code="459" flag="64" vendorId="0" datatype="Integer32" />
+
+    <AvpEntry name="User-Equipment-Info-Value" code="460" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="User-Name" code="1" flag="64" vendorId="0" datatype="OctetString" />
+
+    <AvpEntry name="Validity-Time" code="448" flag="64" vendorId="0" datatype="Unsigned32" />
+
+    <AvpEntry name="Value-Digits" code="447" flag="64" vendorId="0" datatype="Integer64" />
+
+
+
+    <!--Following are 3GPP AVP's /-->
+
+
+
+    <AvpEntry name="Time-Quota-Threshold" code="868" flag="192" vendorId="10415" datatype="Unsigned64" />
+
+    <AvpEntry name="Volume-Quota-Threshold" code="869" flag="192" vendorId="10415" datatype="Unsigned64" />
+
+    <AvpEntry name="Trigger-Type" code="870" flag="192" vendorId="10415" datatype="Integer32" />
+
+    <AvpEntry name="Quota-Holding-Time" code="871" flag="192" vendorId="10415" datatype="Integer32" />
+
+    <AvpEntry name="Reporting-Reason" code="872" flag="192" vendorId="10415" datatype="Integer32" />
+
+
+
+    <!--Following are vendor specific IN-Information AVP's-->
+
+
+
+    <AvpEntry name="Calling-Party-Address" code="20336" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Called-Party-Address" code="20337" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Real-Called-Number" code="20327" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Connect-Called-Number" code="20373" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Called-Short-Number" code="20338" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Group-Number" code="20369" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Charge-Flow-Type" code="20339" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Calling-Partys-Category" code="20301" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Calling-Vlr-Number" code="20302" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Calling-CellID-Or-SAI" code="20303" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Calling-LAI" code="20304" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Called-Vlr-Number" code="20305" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Called-CellID-Or-SAI" code="20306" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Called-LAI" code="20307" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Called-IMEI" code="20308" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Calling-IMEI" code="20309" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Original-Called-Party-Id" code="20310" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="High-Layer-Compatibility" code="20311" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Additional-Calling-Party-Number" code="20312" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Bearer-Capability" code="20313" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Bearer-Capability2" code="20314" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="EventType-BCSM" code="20315" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Redirecting-Party-Id" code="20316" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Redirection-Information" code="20317" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Redirection-Reason" code="20363" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="UE-IMSI" code="20318" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Tele-Service-Code " code="20319" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Bearer-Service-Code" code="20320" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Call-Reference-Number" code="20321" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="MSC-Address" code="20322" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="GMSC-Address" code="20323" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Time-Zone" code="20324" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="IN-Service-Indicator" code="20325" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Charge-Number" code="20326" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Card-Batch" code="20364" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Card-Type" code="20365" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Card-Money" code="20378" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Recharge-Method" code="20343" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="Money-Type" code="20345" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Money-Value" code="20328" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="Active-Day" code="20367" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="ActiveMethod" code="20738" flag="128" vendorId="81000" datatype="Integer32" />
+    <AvpEntry name="Account-Type" code="20372" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Service-Type" code="20377" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Account-Query-Method" code="20346" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Charge-ConfirmFlag" code="20347" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="UserPassWd" code="20362" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Query-Mode" code="20340" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Charge-Method" code="20374" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="Total-Cost-Flag" code="20375" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Call-Control-Services-Result" code="20348" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Card-Number" code="20342" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="AccountId" code="20357" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="AccountDate" code="20359" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="FavCellIdFlag" code="20361" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="AoC-Balance" code="20330" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="AoC-Language-ID" code="20331" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="AoC-Start-Time" code="20333" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="AoC-Unit" code="20334" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="AoC-Price" code="20335" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Access-Code" code="20358" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Route-Prefix" code="20354" flag="128" vendorId="81000" datatype="OctetString" />
+    <AvpEntry name="Calling-Party-NP" code="20384" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Called-Party-NP" code="20385" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="SSP-Time" code="20386" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="MF-Indicator" code="20387" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Service-Free-Indicator" code="20388" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Current-Account-Balance" code="20350" flag="128" vendorId="81000" datatype="Integer64" />
+
+    <AvpEntry name="Account-Balance-Change" code="20351" flag="128" vendorId="81000" datatype="Integer64" />
+
+    <AvpEntry name="Account-Date-Change" code="20352" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="Measure-Type" code="20353" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="IMSI" code="20201" flag="128" vendorId="81000" datatype="OctetString" />
+
+
+
+    <!--Following are vendor specific Recharge-Information AVP's  wangling add-->
+
+    <AvpEntry name="Trade-Time" code="20712" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Gift-Method" code="20707" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Total-Gift-Amount" code="20703" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="First-Gift-Amount" code="20704" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Total-Months" code="20705" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="State" code="20706" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+
+
+    <!--Following are vendor specific In-Information AVP's  wangling add-->
+
+    <AvpEntry name="Switch-To-HotBilling-Flag" code="20709" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Specific-Output" code="20708" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <!--Following are vendor specific In-Information AVP's  luolin add-->
+
+    <AvpEntry name="Notify-Mode" code="20431" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+
+    <!--Following are vendor specific Cost-Information AVP's  zhujian add-->
+
+    <AvpEntry name="Cost-Type" code="20392" flag="64" vendorId="81000" datatype="Integer32" />
+
+
+
+    <!--Following are vendor specific IN-Information AVP's  zhujian add-->
+
+    <AvpEntry name="Alart-Flag" code="20393" flag="64" vendorId="81000" datatype="Integer32" />
+
+
+
+    <!--Following are vendor specific IN-Information AVP's  zhujian add-->
+
+    <AvpEntry name="MessageCount" code="20395" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="MessageContent1" code="20396" flag="64" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="MessageContent2" code="20397" flag="64" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="MessageContent3" code="20398" flag="64" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="MessageContent4" code="20399" flag="64" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="MessageContent5" code="20700" flag="64" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="MessageContent6" code="20701" flag="64" vendorId="81000" datatype="OctetString" />
+
+      <!--Following are vendor specific AUTH-Information AVP's  zhujian add-->
+
+    <AvpEntry name="Auth-ResultCode" code="30801" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Auth-userstate" code="30802" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Auth-action" code="30803" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Auth-VoiceID" code="30804" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Auth-MessageID" code="30805" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Auth-subservicekey" code="30806" flag="128" vendorId="81000" datatype="OctetString" />
+
+
+
+    <!--Following are vendor specific Recharge-Information AVP's hejianfeng add-->
+
+    <AvpEntry name="CardSpID" code="20389" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="FraudTimes" code="20390" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="SerialNo" code="20391" flag="128" vendorId="81000" datatype="OctetString" />
+
+
+    <!--Following are vendor specific IN-Information AVP's  dengaiping add-->
+
+    <AvpEntry name="ChargePartyPayType" code="20731" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="ActivePeriod" code="20733" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="graceperiod" code="20734" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="disableperiod" code="20735" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="SubCOSID" code="20737" flag="128" vendorId="81000" datatype="Unsigned32" />
+    <AvpEntry name="RecieveMessageAddr" code="20732" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="MIN" code="20360" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="MSCId" code="20730" flag="128" vendorId="81000" datatype="OctetString" />
+
+
+    <!--Following are vendor specific P2PSMS-Information AVP's  dengaiping add-->
+    <AvpEntry name="Type_of_Charge" code="20716" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Transaction_ID" code="20717" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Subscriber_Type" code="20718" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Bearer_Capability" code="20719" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="DiscountPSI" code="20720" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Message_ID" code="20721" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Message_Type" code="20722" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+
+    <!--Following are vendor specific P2PSMS-Information AVP's hejianfeng add-->
+
+    <AvpEntry name="SMSC-Address" code="20401" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="SM-Id" code="20402" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="SM-Length" code="20403" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="mo_msc_addr" code="20404" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="mt_msc_addr" code="20405" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="source_addr" code="20406" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="dest_addr" code="20407" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="fee_addr" code="20408" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="fee_flag" code="20409" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="fee_type" code="20410" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="fee_ltd_msg_num" code="20411" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="fee_single" code="20412" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="fee_fixed" code="20413" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="message_pid" code="20414" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="status_report_request" code="20415" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="original_group" code="20416" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Calling_Service" code="20419" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Called_Service" code="20420" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Original_Msg_ID" code="20421" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="SMS-Receive-Time" code="20417" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="send_result" code="20418" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+
+
+    <!--Following are vendor specific P2PSMS-Information AVP's wangling add-->
+
+    <AvpEntry name="sp_id" code="20422" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Service_Code" code="20423" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Msg_ID" code="20424" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Source_GWID" code="20425" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="GWID" code="20426" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Priority_flag" code="20427" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="Dest_Address" code="20428" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="ChargingNo" code="20429" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="ChargingRate" code="20713" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="ChargingType" code="20714" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="cdrtype" code="20432" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="discount" code="20433" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="state" code="20710" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <AvpEntry name="msgSeq" code="20711" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="Operation_Result" code="20430" flag="64" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="Sms-Type" code="20715" flag="64" vendorId="81000" datatype="Unsigned32" />
+
+    <!--Following are vendor specific RTBP-Information AVP's hejianfeng add-->
+
+    <AvpEntry name="sp-id" code="20601" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="service-id" code="20602" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="msg-id" code="20603" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="smc-addr" code="20604" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="opt-type" code="20605" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="need-cnfm" code="20606" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="sessionid" code="20607" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="servicetype" code="20608" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="payer" code="20609" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="chargemode" code="20610" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="volume" code="20611" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="version" code="20612" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="smlength" code="20613" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="mo_mscaddr" code="20614" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="mt_mscaddr" code="20615" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="sessionactive" code="20616" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="src" code="20617" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="dst" code="20618" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="rate" code="20619" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="mstat" code="20620" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="msg-seq" code="20621" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="amount" code="20622" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="usedvolume" code="20623" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="sessioninfo" code="20624" flag="128" vendorId="81000" datatype="OctetString" />
+    <AvpEntry name="Subscriber-Pay-Type" code="20355" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+    <!--下面是RTBP一期新增AVP，add by huangchongfei kf8946-->
+
+    <AvpEntry name="CDRProductID" code="20625" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="CDRChargeMode" code="20626" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="CDRTimes" code="20627" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="CDRDuration" code="20628" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="CDRVolume" code="20629" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="CDRCDRType" code="20630" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="CDRServiceType" code="20631" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="CDRBeginTime" code="20632" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="CDREndTime" code="20633" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="CDRPkgSpid" code="20634" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="CDRPkgServiceid" code="20635" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="CDRPkgProductid" code="20636" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="CDRSPName" code="20637" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <AvpEntry name="CDRServiceName" code="20638" flag="128" vendorId="81000" datatype="OctetString" />
+
+    <!--下面是RTBP二期新增AVP，add by huangchongfei kf8946-->
+
+    <AvpEntry name="BearerType" code="20519" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="BearerProtocolType" code="20522" flag="128" vendorId="81000" datatype="Integer32" />
+
+    <AvpEntry name="CategoryID" code="20639" flag="128" vendorId="81000" datatype="Integer64" />
+
+    <AvpEntry name="ContentID" code="20640" flag="128" vendorId="81000" datatype="Integer64" />
+
+    <AvpEntry name="BearService" code="20641" flag="128" vendorId="81000" datatype="Integer64" />
+
+    <AvpEntry name="NetworkType" code="20642" flag="128" vendorId="81000" datatype="Integer64" />
+
+    <AvpEntry name="TransctionID" code="20643" flag="128" vendorId="81000" datatype="Integer64" />
+
+    <!--Following are vendor specific MDSP-Information AVP's zhanglei add-->
+      <AvpEntry name="Message-Id" code="20501" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="Charge-Party-Type" code="20502" flag="128" vendorId="81000" datatype="Integer32"/>
+
+            <AvpEntry name="OAOperaterID" code="20512" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="DAOperaterID" code="20514" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="SP-Id" code="20504" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="Sevice-Enabler-Type" code="20505" flag="128" vendorId="81000" datatype="Integer32"/>
+
+            <AvpEntry name="Service-Id" code="20506" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="Service_Type" code="20507" flag="128" vendorId="81000" datatype="Integer32"/>
+
+            <AvpEntry name="Content-Id" code="20508" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="Media-Type" code="20508" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="Client-IP" code="20510" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="BaseServiceId" code="20515" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="Calling-Number" code="20516" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="Called-Number" code="20517" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="UserGroup" code="20518" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="BearerType" code="20519" flag="128" vendorId="81000" datatype="Integer32"/>
+
+            <AvpEntry name="StartTime" code="20520" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="StopTime" code="20521" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <!--<AvpEntry name="BearerProtocolType" code="20522" flag="128" vendorId="81000" datatype="Integer32"/>-->
+
+            <AvpEntry name="UsedUplinkVolume" code="20523" flag="128" vendorId="81000" datatype="Integer32"/>
+
+            <AvpEntry name="UsedDownlinkVolume" code="20524" flag="128" vendorId="81000" datatype="Integer32"/>
+
+            <AvpEntry name="APN" code="20525" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="SGSNIP" code="20526" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="ChargingID" code="20527" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="QOS" code="20528" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="URL" code="20529" flag="128" vendorId="81000" datatype="OctetString"/>
+
+            <AvpEntry name="SessionTimeout" code="20530" flag="128" vendorId="81000" datatype="Integer32"/>
+
+            <AvpEntry name="ServiceLevel" code="20531" flag="128" vendorId="81000" datatype="Integer32"/>
+
+            <AvpEntry name="MsgNum" code="20532" flag="128" vendorId="81000" datatype="Integer32"/>
+
+            <AvpEntry name="CellID" code="20533" flag="128" vendorId="81000" datatype="OctetString"/>
+
+                   <!--下面是ETOPUP充值新增AVP(Add by xk00101603)-->
+          <AvpEntry name="ETopupSessionID" code="20740" flag="128" vendorId="81000" datatype="OctetString" />
+          <AvpEntry name="QueryStartTime" code="20741" flag="128" vendorId="81000" datatype="Unsigned32" />
+          <AvpEntry name="QueryEndTime" code="20742" flag="128" vendorId="81000" datatype="Unsigned32" />
+          <AvpEntry name="NewActiveStop" code="20745" flag="128" vendorId="81000" datatype="OctetString" />
+          <AvpEntry name="OldActiveStop" code="20746" flag="128" vendorId="81000" datatype="OctetString" />
+          <AvpEntry name="OldUserState" code="20747" flag="128" vendorId="81000" datatype="OctetString" />
+          <AvpEntry name="NewUserState" code="20748" flag="128" vendorId="81000" datatype="OctetString" />
+          <AvpEntry name="TradeTime" code="20743" flag="128" vendorId="81000" datatype="OctetString" />
+          <AvpEntry name="ErrorType" code="20744" flag="128" vendorId="81000" datatype="Unsigned32" />
+          <AvpEntry name="Release-Reason" code="20780" flag="128" vendorId="81000" datatype="Integer32" />
+          <AvpEntry name="Access-Network-Type" code="20804" flag="128" vendorId="81000" datatype="Integer32" />
+
+          <!-- 20080124 迭代三新增MMS AVP add by xuke 00101603-->
+          <AvpEntry name="TORO-AdditionalSourceData" code="60308" flag="128" vendorId="81000" datatype="OctetString"/>
+
+    <AvpEntry name="TORO-ContentType" code="60352" flag="128" vendorId="81000" datatype="Unsigned32"/>
+
+    <AvpEntry name="TORO-ValidityPeriod" code="60357" flag="128" vendorId="81000" datatype="Unsigned32"/>
+
+    <AvpEntry name="TORO-IMSI" code="60317" flag="128" vendorId="81000" datatype="OctetString"/>
+
+    <AvpEntry name="TORO-IMEI" code="60328" flag="128" vendorId="81000" datatype="OctetString"/>
+
+    <AvpEntry name="TORO-MessagePriority" code="60444" flag="128" vendorId="81000" datatype="Unsigned32"/>
+
+    <AvpEntry name="TORO-MessageDeliveryRequested" code="60366" flag="128" vendorId="81000" datatype="Unsigned32"/>
+
+    <AvpEntry name="TORO-DeliveryRequested" code="60367" flag="128" vendorId="81000" datatype="Unsigned32"/>
+
+    <AvpEntry name="TORO-AdditionalDestinationID" code="60422" flag="128" vendorId="81000" datatype="Group"/>
+
+    <AvpEntry name="TORO-AdditionalDestinationData" code="60423" flag="128" vendorId="81000" datatype="OctetString"/>
+
+    <AvpEntry name="TORO-Trigger-Type" code="60100" flag="128" vendorId="81000" datatype="Integer32"/>
+
+    <AvpEntry name="TORO-SubTriggerType" code="60331" flag="128" vendorId="81000" datatype="OctetString"/>
+
+    <AvpEntry name="TORO-SouthboundReferenceID" code="60448" flag="128" vendorId="81000" datatype="OctetString"/>
+
+          <!-- 20080125 迭代三新增RBT AVP add by xuke 00101603-->
+          <AvpEntry name="TORO-RBT-Business-Sharing-ID" code="60556" flag="128" vendorId="81000" datatype="Group"/>
+
+          <AvpEntry name="TORO-RBT-Business-Sharing-Name" code="60557" flag="128" vendorId="81000" datatype="OctetString" />
+
+          <AvpEntry name="TORO-RBT-Subscription-Configuration-Information " code="60400" flag="128" vendorId="81000" datatype="Group" />
+
+          <!-- 20080125 迭代三新增GPRS AVP add by xuke 00101603-->
+          <AvpEntry name="Requested-Service-Unit" code="437" flag="128" vendorId="81000" datatype="Group"/>
+
+          <AvpEntry name="Service-Information" code="873" flag="128" vendorId="81000" datatype="Group"/>
+
+          <AvpEntry name="SGSN-Address" code="1228" flag="128" vendorId="81000" datatype="OctetString"/>
+
+          <AvpEntry name="Called-Station-Id" code="30" flag="128" vendorId="81000" datatype="OctetString"/>
+
+          <AvpEntry name="PS-Furnish-Charging-Information" code="865" flag="128" vendorId="81000" datatype="Group"/>
+
+          <AvpEntry name="GPP-Charging-Id" code="2" flag="128" vendorId="81000" datatype="OctetString"/>
+
+          <AvpEntry name="PS-Free-Format-Data" code="866" flag="128" vendorId="81000" datatype="OctetString"/>
+
+          <!-- 20080125 迭代三新增内容计费 AVP add by xuke 00101603-->
+          <AvpEntry name="TORO-CDS-Session-Information" code="60480" flag="128" vendorId="81000" datatype="Group"/>
+
+          <AvpEntry name="TORO-EventTypeCDS" code="60481" flag="128" vendorId="81000" datatype="Unsigned32"/>
+
+          <!--ETOPUP充值-->
+          <AvpEntry name="Recharge-Information" code="20341" flag="128" vendorId="81000" datatype="Group"/>
+
+          <AvpEntry name="Charge-Money" code="20344" flag="128" vendorId="81000" datatype="Group"/>
+
+          <!--20080220 新增CALL-CCA-INITIAL消息中Alert-Level avp add by xuke-->
+           <AvpEntry name="Alert-Level" code="20499" flag="128" vendorId="81000" datatype="Unsigned32" />
+
+         <!--20080329 新增利比亚局点MMS CCR AVP  add by liuqing-->
+
+    <AvpEntry name="Subscription-Id" code="443" flag="0" vendorId="0" datatype="Group" />
+    <AvpEntry name="Subscription-Id-Data" code="444" flag="64" vendorId="0" datatype="OctetString" />
+    <AvpEntry name="Subscription-Id-Type" code="450" flag="64" vendorId="0" datatype="Integer32" />
+    <AvpEntry name="Used-Serivce-Unit" code="446" flag="0" vendorId="0" datatype="Group" />
+    <AvpEntry name="CC-Service-Specific-Units" code="417" flag="128" vendorId="0" datatype="Unsigned32" />
+   <AvpEntry name="Service-Information" code="873" flag="128" vendorId="81000" datatype="Group"/>
+   <AvpEntry name="MMS-Information" code="877" flag="128" vendorId="81000" datatype="Group" />
+   <AvpEntry name="Recipient-Address" code="1201" flag="128" vendorId="81000" datatype="Group" />
+   <AvpEntry name="Address-Type" code="899" flag="64" vendorId="81000" datatype="Integer32" />
+   <AvpEntry name="Address-Data" code="897" flag="128" vendorId="81000" datatype="OctetString" />
+   <AvpEntry name="Originator-Address" code="886" flag="128" vendorId="81000" datatype="Group"/>
+   <AvpEntry name="Message-Size" code="1212" flag="128" vendorId="81000" datatype="Unsigned32" />
+   <AvpEntry name="Priority" code="1209" flag="64" vendorId="81000" datatype="Integer32"/>
+   <AvpEntry name="Message-ID" code="1210" flag="128" vendorId="81000" datatype="OctetString"/>
+   <AvpEntry name="Message-Type" code="1211" flag="64" vendorId="81000" datatype="Integer32" />
+   <AvpEntry name="VASP-Id" code="1101" flag="128" vendorId="81000" datatype="OctetString" />
+    <AvpEntry name="VAS-Id" code="1102" flag="128" vendorId="81000" datatype="OctetString" />
+    <AvpEntry name="service-id" code="20602" flag="128" vendorId="81000" datatype="OctetString" />
+    <AvpEntry name="Submission-Time" code="1202" flag="64" vendorId="81000" datatype="OctetString" />
+    <AvpEntry name="MSG-Seq" code="20802" flag="128" vendorId="81000" datatype="OctetString" />
+</AvpDict>
+
+
+
+<GroupedAvpDict>
+
+    <GroupedAvpEntry>
+
+        <Header name="Proxy-Info" code="284" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+            <avprule name="Proxy-Host" code="280" vendorId="0" max="1" min="1" baseTag="1" />
+
+            <avprule name="Proxy-State" code="33" vendorId="0" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="User-Equipment-Info" code="458" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+            <avprule name="User-Equipment-Info-Type" code="459" vendorId="0" max="1" min="1" baseTag="1" />
+
+            <avprule name="User-Equipment-Info-Value" code="460" vendorId="0" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="Subscription-Id" code="443" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+            <avprule name="Subscription-Id-Type" code="450" vendorId="0" max="1" min="1" baseTag="1" />
+
+            <avprule name="Subscription-Id-Data" code="444" vendorId="0" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="Unit-Value" code="445" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+             <avprule name="Value-Digits" code="447" vendorId="0" max="1" min="1" baseTag="1" />
+
+        </required>
+
+        <optional>
+
+            <avprule name="Exponent" code="429" vendorId="0" max="1" min="1" baseTag="2" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="CC-Money" code="413" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+             <avprule name="Unit-Value" code="445" vendorId="0" max="1" min="1" baseTag="1" />
+
+        </required>
+
+        <optional>
+
+            <avprule name="Currency-Code" code="425" vendorId="0" max="1" min="1" baseTag="2" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="Requested-Service-Unit" code="437" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="CC-Time" code="420" vendorId="0" max="1" min="1" baseTag="1" />
+
+            <avprule name="CC-Money" code="413" vendorId="0" max="1" min="1" baseTag="2" />
+
+            <avprule name="CC-Total-Octets" code="421" vendorId="0" max="1" min="1" baseTag="3" />
+
+            <avprule name="CC-Input-Octets" code="412" vendorId="0" max="1" min="1" baseTag="4" />
+
+            <avprule name="CC-Output-Octets" code="414" vendorId="0" max="1" min="1" baseTag="5" />
+
+            <avprule name="CC-Service-Specific-Units" code="417" vendorId="0" max="1" min="1" baseTag="6" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="PS-Information" code="874" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="3GPP-SGSN-MCC-MNC" code="18" vendorId="0" max="1" min="1" baseTag="1" />
+
+            <avprule name="SGSN-Address" code="1228" vendorId="0" max="32" min="1" baseTag="2" />
+
+            <avprule name="Called-Station-Id" code="30" vendorId="0" max="1" min="1" baseTag="3" />
+
+            <avprule name="PS-Furnish-Charging-Information" code="865" vendorId="0" max="1" min="1" baseTag="4" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+        <Header name="Used-Service-Unit" code="446" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="Reporting-Reason" code="872" vendorId="10415" max="1" min="1" baseTag="1" />
+
+            <avprule name="Tariff-Change-Usage" code="452" vendorId="0" max="1" min="1" baseTag="2" />
+
+            <avprule name="CC-Time" code="420" vendorId="0" max="1" min="1" baseTag="3" />
+
+            <avprule name="CC-Money" code="413" vendorId="0" max="1" min="1" baseTag="4" />
+
+            <avprule name="CC-Total-Octets" code="421" vendorId="0" max="1" min="1" baseTag="5" />
+
+            <avprule name="CC-Input-Octets" code="412" vendorId="0" max="1" min="1" baseTag="6" />
+
+            <avprule name="CC-Output-Octets" code="414" vendorId="0" max="1" min="1" baseTag="7" />
+
+            <avprule name="CC-Service-Specific-Units" code="417" vendorId="0" max="1" min="1" baseTag="8" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="Granted-Service-Unit" code="431" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="Tariff-Time-Change" code="451" vendorId="0" max="1" min="1" baseTag="1" />
+
+            <avprule name="CC-Time" code="420" vendorId="0" max="1" min="1" baseTag="2" />
+
+            <avprule name="CC-Money" code="413" vendorId="0" max="1" min="1" baseTag="3" />
+
+            <avprule name="CC-Total-Octets" code="421" vendorId="0" max="1" min="1" baseTag="4" />
+
+            <avprule name="CC-Input-Octets" code="412" vendorId="0" max="1" min="1" baseTag="5" />
+
+            <avprule name="CC-Output-Octets" code="414" vendorId="0" max="1" min="1" baseTag="6" />
+
+            <avprule name="CC-Service-Specific-Units" code="417" vendorId="0" max="1" min="1" baseTag="7" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="G-S-U-Pool-Reference" code="457" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+             <avprule name="G-S-U-Pool-Identifier" code="453" vendorId="0" max="1" min="1" baseTag="1" />
+
+             <avprule name="CC-Unit-Type" code="454" vendorId="0" max="1" min="1" baseTag="2" />
+
+             <avprule name="Unit-Value" code="445" vendorId="0" max="1" min="1" baseTag="3" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="Redirect-Server" code="434" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+             <avprule name="Redirect-Address-Type" code="433" vendorId="0" max="1" min="1" baseTag="1" />
+
+             <avprule name="Redirect-Server-Address" code="435" vendorId="0" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="Final-Unit-Indication" code="430" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+             <avprule name="Final-Unit-Action" code="449" vendorId="0" max="1" min="1" baseTag="1" />
+
+        </required>
+
+        <optional>
+
+             <avprule name="Restriction-Filter-Rule" code="438" vendorId="0" max="10" min="1" baseTag="2" />
+
+             <avprule name="Filter-Id" code="11" vendorId="0" max="10" min="1" baseTag="21" />
+
+             <avprule name="Redirect-Server" code="434" vendorId="0" max="1" min="1" baseTag="40" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="Multiple-Services-Credit-Control" code="456" flag="64" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="Reporting-Reason" code="872" vendorId="10415" max="1" min="1" baseTag="1" />
+
+            <avprule name="Trigger-Type" code="870" vendorId="10415" max="10" min="1" baseTag="2" />
+
+            <avprule name="Requested-Service-Unit" code="437" vendorId="0" max="1" min="1" baseTag="21" />
+
+            <avprule name="Used-Service-Unit" code="446" vendorId="0" max="10" min="1" baseTag="22" />
+
+            <avprule name="Quota-Holding-Time" code="871" vendorId="10415" max="1" min="1" baseTag="41" />
+
+            <avprule name="Granted-Service-Unit" code="431" vendorId="0" max="1" min="1" baseTag="42" />
+
+            <avprule name="Time-Quota-Threshold" code="868" vendorId="10415" max="1" min="1" baseTag="43" />
+
+            <avprule name="Volume-Quota-Threshold" code="869" vendorId="10415" max="1" min="1" baseTag="44" />
+
+            <avprule name="Tariff-Change-Usage" code="452" vendorId="0" max="1" min="1" baseTag="45" />
+
+            <avprule name="Service-Identifier" code="439" vendorId="0" max="10" min="1" baseTag="46" />
+
+            <avprule name="Rating-Group" code="432" vendorId="0" max="1" min="1" baseTag="65" />
+
+            <avprule name="G-S-U-Pool-Reference" code="457" vendorId="0" max="10" min="1" baseTag="66" />
+
+(avp-check)            <avprule name="Validity-Time" code="448" vendorId="0" max="1" min="1" baseTag="85" />
+
+(avp-check)            <avprule name="Result-Code" code="268" vendorId="0" max="1" min="1" baseTag="86" />
+
+            <avprule name="Final-Unit-Indication" code="430" vendorId="0" max="1" min="1" baseTag="87" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="Cost-Information" code="423" flag="64" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+             <avprule name="Unit-Value" code="445" vendorId="0" max="1" min="1" baseTag="1" />
+
+             <avprule name="Currency-Code" code="425" vendorId="0" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+             <avprule name="Cost-Unit" code="424" vendorId="0" max="1" min="1" baseTag="3" />
+
+             <avprule name="Cost-Type" code="20392" vendorId="81000" max="1" min="1" baseTag="4" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="Charge-Money" code="20344" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+           <avprule name="Money-Type" code="20345" vendorId="81000" max="1" min="1" baseTag="1" />
+
+           <avprule name="Money-Value" code="20328" vendorId="81000" max="1" min="1" baseTag="2" />
+
+           <avprule name="Active-Day" code="20367" vendorId="81000" max="1" min="1" baseTag="3" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="Recharge-Information" code="20341" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+           <avprule name="Charge-Number" code="20326" vendorId="81000" max="1" min="1" baseTag="1" />
+
+           <avprule name="Card-Number" code="20342" vendorId="81000" max="1" min="1" baseTag="2" />
+
+           <avprule name="Card-Batch" code="20364" vendorId="81000" max="1" min="1" baseTag="3" />
+
+           <avprule name="Card-Type" code="20365" vendorId="81000" max="1" min="1" baseTag="4" />
+
+           <avprule name="Card-Money" code="20378" vendorId="81000" max="1" min="1" baseTag="5" />
+
+           <avprule name="Recharge-Method" code="20343" vendorId="81000" max="1" min="1" baseTag="6" />
+
+           <avprule name="Charge-Money" code="20344" vendorId="81000" max="1" min="1" baseTag="7" />
+
+           <avprule name="CardSpID" code="20389" vendorId="81000" max="1" min="1" baseTag="8" />
+
+           <avprule name="FraudTimes" code="20390" vendorId="81000" max="1" min="1" baseTag="9" />
+
+           <avprule name="SerialNo" code="20391" vendorId="81000" max="1" min="1" baseTag="10" />
+
+           <avprule name="Trade-Time" code="20712" vendorId="81000" max="1" min="1" baseTag="11" />
+
+           <avprule name="Gift-Method" code="20707" vendorId="81000" max="1" min="1" baseTag="12" />
+
+           <avprule name="Total-Gift-Amount" code="20703" vendorId="81000" max="1" min="1" baseTag="13" />
+
+           <avprule name="First-Gift-Amount" code="20704" vendorId="81000" max="1" min="1" baseTag="14" />
+
+           <avprule name="Total-Months" code="20705" vendorId="81000" max="1" min="1" baseTag="15" />
+
+           <avprule name="State" code="20706" vendorId="81000" max="1" min="1" baseTag="16" />
+
+           <avprule name="ETopupSessionID" code="20740" vendorId="81000" max="1" min="1" baseTag="17" />
+
+           <avprule name="QueryStartTime" code="20741" vendorId="81000" max="1" min="1" baseTag="18" />
+
+           <avprule name="QueryEndTime" code="20742" vendorId="81000" max="1" min="1" baseTag="19" />
+
+           <avprule name="NewActiveStop" code="20745" vendorId="81000" max="1" min="1" baseTag="20" />
+
+           <avprule name="OldActiveStop" code="20746" vendorId="81000" max="1" min="1" baseTag="21" />
+
+           <avprule name="OldUserState" code="20747" vendorId="81000" max="1" min="1" baseTag="22" />
+
+           <avprule name="NewUserState" code="20748" vendorId="81000" max="1" min="1" baseTag="23" />
+
+           <avprule name="Account-Type" code="20372" vendorId="81000" max="1" min="1" baseTag="24" />
+
+           <avprule name="TradeTime" code="20743" vendorId="81000" max="1" min="1" baseTag="25" />
+
+           <avprule name="ErrorType" code="20744" vendorId="81000" max="1" min="1" baseTag="26" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="AccountInfo" code="20356" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+           <avprule name="AccountId" code="20357" vendorId="81000" max="1" min="1" baseTag="1" />
+
+           <avprule name="Account-Type" code="20372" vendorId="81000" max="1" min="1" baseTag="2" />
+
+           <avprule name="CC-Money" code="413" vendorId="0" max="1" min="1" baseTag="3" />
+
+           <avprule name="AccountDate" code="20359" vendorId="81000" max="1" min="1" baseTag="4" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="AoC-Tariff" code="20332" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+           <avprule name="AoC-Start-Time" code="20333" vendorId="81000" max="1" min="1" baseTag="1" />
+
+           <avprule name="AoC-Unit" code="20334" vendorId="81000" max="1" min="1" baseTag="2" />
+
+           <avprule name="AoC-Price" code="20335" vendorId="81000" max="1" min="1" baseTag="3" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="AoC-Information" code="20329" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+           <avprule name="AoC-Balance" code="20330" vendorId="81000" max="1" min="1" baseTag="1" />
+
+           <avprule name="AoC-Language-ID" code="20331" vendorId="81000" max="1" min="1" baseTag="2" />
+
+           <avprule name="AoC-Tariff" code="20332" vendorId="81000" max="10" min="1" baseTag="3" />
+
+           <!--avprule name="AoC-Confirmation" code="20340" vendorId="81000" max="1" min="1" baseTag="22" /hejianfeng-->
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="Account-Change-Info" code="20349" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+           <avprule name="AccountId" code="20357" vendorId="81000" max="1" min="1" baseTag="1" />
+
+           <avprule name="Account-Type" code="20372" vendorId="81000" max="1" min="1" baseTag="2" />
+
+           <avprule name="Current-Account-Balance" code="20350" vendorId="81000" max="1" min="1" baseTag="3" />
+
+           <avprule name="Account-Balance-Change" code="20351" vendorId="81000" max="1" min="1" baseTag="4" />
+
+           <avprule name="AccountDate" code="20359" vendorId="81000" max="1" min="1" baseTag="5" />
+
+           <avprule name="Account-Date-Change" code="20352" vendorId="81000" max="1" min="1" baseTag="6" />
+
+           <avprule name="Measure-Type" code="20353" vendorId="81000" max="1" min="1" baseTag="7" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+
+
+    <!--Following are vendor specific RTBP-Information AVP's zhujian add-->
+
+    <GroupedAvpEntry>
+
+        <Header name="Notice-Infomation" code="20394" flag="64" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+           <avprule name="MessageCount" code="20395" vendorId="81000" max="1" min="1" baseTag="1" />
+
+           <avprule name="MessageContent1" code="20396" vendorId="81000" max="1" min="1" baseTag="2" />
+
+           <avprule name="MessageContent2" code="20397" vendorId="81000" max="1" min="1" baseTag="3" />
+
+           <avprule name="MessageContent3" code="20398" vendorId="81000" max="1" min="1" baseTag="4" />
+
+           <avprule name="MessageContent4" code="20399" vendorId="81000" max="1" min="1" baseTag="5" />
+
+           <avprule name="MessageContent5" code="20700" vendorId="81000" max="1" min="1" baseTag="6" />
+
+           <avprule name="MessageContent6" code="20701" vendorId="81000" max="1" min="1" baseTag="7" />
+
+           <avprule name="RecieveMessageAddr" code="20732" vendorId="81000" max="1" min="1" baseTag="8" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+
+    <!--Following are vendor specific AUTH-Infomation AVP's zhujian add-->
+
+    <GroupedAvpEntry>
+
+        <Header name="Auth-Information" code="30800" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+           <avprule name="Auth-ResultCode" code="30801" vendorId="81000" max="1" min="1" baseTag="1" />
+
+           <avprule name="Auth-userstate" code="30802" vendorId="81000" max="1" min="1" baseTag="2" />
+
+           <avprule name="Auth-action" code="30803" vendorId="81000" max="1" min="1" baseTag="3" />
+
+           <avprule name="Auth-VoiceID" code="30804" vendorId="81000" max="1" min="1" baseTag="4" />
+
+           <avprule name="Auth-MessageID" code="30805" vendorId="81000" max="1" min="1" baseTag="5" />
+
+           <avprule name="Auth-subservicekey" code="30806" vendorId="81000" max="1" min="1" baseTag="6" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+
+    <GroupedAvpEntry>
+
+        <Header name="IN-Information" code="20300" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="Calling-Party-Address" code="20336" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="Called-Party-Address" code="20337" vendorId="81000" max="1" min="1" baseTag="2" />
+
+            <avprule name="Real-Called-Number" code="20327" vendorId="81000" max="1" min="1" baseTag="3" />
+
+            <avprule name="Connect-Called-Number" code="20373" vendorId="81000" max="1" min="1" baseTag="4" />
+
+            <avprule name="Called-Short-Number" code="20338" vendorId="81000" max="1" min="1" baseTag="5" />
+
+            <avprule name="Group-Number" code="20369" vendorId="81000" max="1" min="1" baseTag="6" />
+
+            <avprule name="Specific-Output" code="20708" vendorId="81000" max="1" min="1" baseTag="91" />
+
+            <avprule name="Charge-Flow-Type" code="20339" vendorId="81000" max="1" min="1" baseTag="7" />
+
+            <avprule name="Calling-Partys-Category" code="20301" vendorId="81000" max="1" min="1" baseTag="8" />
+
+            <avprule name="Calling-Vlr-Number" code="20302" vendorId="81000" max="1" min="1" baseTag="9" />
+
+            <avprule name="Calling-CellID-Or-SAI" code="20303" vendorId="81000" max="1" min="1" baseTag="10" />
+
+            <avprule name="Calling-LAI" code="20304" vendorId="81000" max="1" min="1" baseTag="11" />
+
+            <avprule name="Called-Vlr-Number" code="20305" vendorId="81000" max="1" min="1" baseTag="12" />
+
+            <avprule name="Called-CellID-Or-SAI" code="20306" vendorId="81000" max="1" min="1" baseTag="13" />
+
+            <avprule name="Called-LAI" code="20307" vendorId="81000" max="1" min="1" baseTag="14" />
+
+            <avprule name="Called-IMEI" code="20308" vendorId="81000" max="1" min="1" baseTag="15" />
+
+            <avprule name="Calling-IMEI" code="20309" vendorId="81000" max="1" min="1" baseTag="16" />
+
+            <avprule name="Original-Called-Party-Id" code="20310" vendorId="81000" max="1" min="1" baseTag="17" />
+
+            <avprule name="High-Layer-Compatibility" code="20311" vendorId="81000" max="1" min="1" baseTag="18" />
+
+            <avprule name="Additional-Calling-Party-Number" code="20312" vendorId="81000" max="1" min="1" baseTag="19" />
+
+            <avprule name="Bearer-Capability" code="20313" vendorId="81000" max="1" min="1" baseTag="20" />
+
+            <avprule name="Bearer-Capability2" code="20314" vendorId="81000" max="1" min="1" baseTag="21" />
+
+            <avprule name="EventType-BCSM" code="20315" vendorId="81000" max="1" min="1" baseTag="22" />
+
+            <avprule name="Redirecting-Party-Id" code="20316" vendorId="81000" max="1" min="1" baseTag="23" />
+
+            <avprule name="Redirection-Information" code="20317" vendorId="81000" max="1" min="1" baseTag="24" />
+
+            <avprule name="Redirection-Reason" code="20363" vendorId="81000" max="1" min="1" baseTag="25" />
+
+            <avprule name="UE-IMSI" code="20318" vendorId="81000" max="1" min="1" baseTag="26" />
+
+            <avprule name="Tele-Service-Code " code="20319" vendorId="81000" max="1" min="1" baseTag="27" />
+
+            <avprule name="Bearer-Service-Code" code="20320" vendorId="81000" max="1" min="1" baseTag="28" />
+
+            <avprule name="Call-Reference-Number" code="20321" vendorId="81000" max="1" min="1" baseTag="29" />
+
+            <avprule name="MSC-Address" code="20322" vendorId="81000" max="1" min="1" baseTag="30" />
+
+            <avprule name="GMSC-Address" code="20323" vendorId="81000" max="1" min="1" baseTag="31" />
+
+            <avprule name="Time-Zone" code="20324" vendorId="81000" max="1" min="1" baseTag="32" />
+
+            <avprule name="IN-Service-Indicator" code="20325" vendorId="81000" max="1" min="1" baseTag="33" />
+
+            <avprule name="Recharge-Information" code="20341" vendorId="81000" max="1" min="1" baseTag="34" />
+
+            <avprule name="Account-Type" code="20372" vendorId="81000" max="1" min="1" baseTag="35" />
+
+            <avprule name="Service-Type" code="20377" vendorId="81000" max="1" min="1" baseTag="36" />
+
+            <avprule name="Account-Query-Method" code="20346" vendorId="81000" max="1" min="1" baseTag="37" />
+
+            <avprule name="Charge-ConfirmFlag" code="20347" vendorId="81000" max="1" min="1" baseTag="38" />
+
+            <avprule name="UserPassWd" code="20362" vendorId="81000" max="1" min="1" baseTag="39" />
+
+            <avprule name="CC-Time" code="420" vendorId="0" max="1" min="1" baseTag="40" />
+
+            <avprule name="Query-Mode" code="20340" vendorId="81000" max="1" min="1" baseTag="41" />
+
+            <avprule name="Charge-Method" code="20374" vendorId="81000" max="1" min="1" baseTag="42" />
+
+            <avprule name="Total-Cost-Flag" code="20375" vendorId="81000" max="1" min="1" baseTag="43" />
+
+            <avprule name="Call-Control-Services-Result" code="20348" vendorId="81000" max="1" min="1" baseTag="44" />
+
+            <avprule name="Card-Number" code="20342" vendorId="81000" max="1" min="1" baseTag="45" />
+
+            <avprule name="CC-Money" code="413" vendorId="0" max="1" min="1" baseTag="46" />
+
+            <avprule name="AccountInfo" code="20356" vendorId="81000" max="20" min="1" baseTag="50" />
+
+            <avprule name="FavCellIdFlag" code="20361" vendorId="81000" max="1" min="1" baseTag="89" />
+
+            <avprule name="AoC-Information" code="20329" vendorId="81000" max="1" min="1" baseTag="90" />
+
+            <avprule name="Access-Code" code="20358" vendorId="81000" max="1" min="1" baseTag="111" />
+
+            <avprule name="Route-Prefix" code="20354" vendorId="81000" max="1" min="1" baseTag="111" />
+            <avprule name="Calling-Party-NP" code="20384" vendorId="81000" max="1" min="1" baseTag="113" />
+
+            <avprule name="Called-Party-NP" code="20385" vendorId="81000" max="1" min="1" baseTag="114" />
+
+            <avprule name="SSP-Time" code="20386" vendorId="81000" max="1" min="1" baseTag="115" />
+
+            <avprule name="MF-Indicator" code="20387" vendorId="81000" max="1" min="1" baseTag="116" />
+
+            <avprule name="Service-Free-Indicator" code="20388" vendorId="81000" max="1" min="1" baseTag="117" />
+
+            <avprule name="Account-Change-Info" code="20349" vendorId="81000" max="10" min="1" baseTag="118" />
+
+            <avprule name="IMSI" code="20201" vendorId="81000" max="1" min="1" baseTag="128" />
+
+            <avprule name="Alart-Flag" code="20393" vendorId="81000" max="1" min="1" baseTag="150" />
+
+            <avprule name="Notice-Infomation" code="20394" vendorId="81000" max="2" min="1" baseTag="151" />
+
+            <avprule name="Auth-Information" code="30800" vendorId="81000" max="1" min="1" baseTag="152" />
+
+            <avprule name="Switch-To-HotBilling-Flag" code="20709" vendorId="81000" max="1" min="1" baseTag="92" />
+
+            <avprule name="ChargePartyPayType" code="20731" vendorId="81000" max="1" min="1" baseTag="171" />
+
+            <avprule name="ActivePeriod" code="20733" vendorId="81000" max="1" min="1" baseTag="172" />
+
+            <avprule name="graceperiod" code="20734" vendorId="81000" max="1" min="1" baseTag="173" />
+
+            <avprule name="disableperiod" code="20735" vendorId="81000" max="1" min="1" baseTag="174" />
+
+            <avprule name="SubCOSID" code="20737" vendorId="81000" max="1" min="1" baseTag="177" />
+
+            <avprule name="MIN" code="20360" vendorId="81000" max="1" min="1" baseTag="175" />
+
+            <avprule name="MSCId" code="20730" vendorId="81000" max="1" min="1" baseTag="129" />
+
+            <avprule name="Subscriber-Pay-Type" code="20355" vendorId="81000" max="1" min="1" baseTag="129" />
+
+                <avprule name="Release-Reason" code="20780" vendorId="81000" max="1" min="1" baseTag="130" />
+
+                <avprule name="Access-Network-Type" code="20804" vendorId="81000" max="1" min="1" baseTag="131" />
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <!--Following are vendor specific P2PSMS-Information AVP's hejianfeng add-->
+
+
+
+    <!--Following are vendor specific P2PSMS-Information AVP's hejianfeng add-->
+
+    <GroupedAvpEntry>
+
+        <Header name="P2PSMS-Information" code="20400" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="SMSC-Address" code="20401" vendorId="81000" max="1" min="1" baseTag="1"/>
+
+            <avprule name="SM-Id" code="20402" vendorId="81000" max="1" min="1" baseTag="2" />
+
+            <avprule name="SM-Length" code="20403" vendorId="81000" max="1" min="1" baseTag="3"/>
+
+            <avprule name="mo_msc_addr" code="20404" vendorId="81000" max="1" min="1" baseTag="4"/>
+
+            <avprule name="mt_msc_addr" code="20405" vendorId="81000" max="1" min="1" baseTag="5"/>
+
+            <avprule name="source_addr" code="20406" vendorId="81000" max="1" min="1" baseTag="6"/>
+
+            <avprule name="dest_addr" code="20407" vendorId="81000" max="1" min="1" baseTag="7"/>
+
+            <avprule name="fee_addr" code="20408" vendorId="81000" max="1" min="1" baseTag="8"/>
+
+            <avprule name="fee_flag" code="20409" vendorId="81000" max="1" min="1" baseTag="9"/>
+
+            <avprule name="fee_type" code="20410" vendorId="81000" max="1" min="1" baseTag="10"/>
+
+            <avprule name="fee_ltd_msg_num" code="20411" vendorId="81000" max="1" min="1" baseTag="11"/>
+
+            <avprule name="fee_single" code="20412" vendorId="81000" max="1" min="1" baseTag="12"/>
+
+            <avprule name="fee_fixed" code="20413" vendorId="81000" max="1" min="1" baseTag="13"/>
+
+            <avprule name="message_pid" code="20414" vendorId="81000" max="1" min="1" baseTag="14"/>
+
+            <avprule name="status_report_request" code="20415" vendorId="81000" max="1" min="1" baseTag="15"/>
+
+            <avprule name="original_group" code="20416" vendorId="81000" max="1" min="1" baseTag="16"/>
+
+            <avprule name="Calling_Service" code="20419" vendorId="81000" max="1" min="1" baseTag="17"/>
+
+            <avprule name="Called_Service" code="20420" vendorId="81000" max="1" min="1" baseTag="18"/>
+
+            <avprule name="Original_Msg_ID" code="20421" vendorId="81000" max="1" min="1" baseTag="19"/>
+
+            <avprule name="SMS-Receive-Time" code="20417" vendorId="81000" max="1" min="1" baseTag="20"/>
+
+            <avprule name="send_result" code="20418" vendorId="81000" max="1" min="1" baseTag="21"/>
+
+            <avprule name="sp_id" code="20422" vendorId="81000" max="1" min="1" baseTag="22"/>
+
+            <avprule name="Service_Code" code="20423" vendorId="81000" max="1" min="1" baseTag="23"/>
+
+            <avprule name="Msg_ID" code="20424" vendorId="81000" max="1" min="1" baseTag="24"/>
+
+            <avprule name="Source_GWID" code="20425" vendorId="81000" max="1" min="1" baseTag="25"/>
+
+            <avprule name="GWID" code="20426" vendorId="81000" max="1" min="1" baseTag="26"/>
+
+            <avprule name="Priority_flag" code="20427" vendorId="81000" max="1" min="1" baseTag="27"/>
+
+            <avprule name="Dest_Address" code="20428" vendorId="81000" max="1" min="1" baseTag="28"/>
+
+            <avprule name="ChargingNo" code="20429" vendorId="81000" max="1" min="1" baseTag="29"/>
+
+            <avprule name="ChargingRate" code="20713" vendorId="81000" max="1" min="1" baseTag="30"/>
+
+            <avprule name="ChargingType" code="20714" vendorId="81000" max="1" min="1" baseTag="31"/>
+
+            <avprule name="cdrtype" code="20432" vendorId="81000" max="1" min="1" baseTag="32"/>
+
+            <avprule name="discount" code="20433" vendorId="81000" max="1" min="1" baseTag="33"/>
+
+            <avprule name="state" code="20710" vendorId="81000" max="1" min="1" baseTag="34"/>
+
+            <avprule name="msgSeq" code="20711" vendorId="81000" max="1" min="1" baseTag="36"/>
+
+            <avprule name="Sms-Type" code="20715" vendorId="81000" max="1" min="1" baseTag="37"/>
+
+            <avprule name="Operation_Result" code="20430" vendorId="81000" max="1" min="1" baseTag="38"/>
+
+            <avprule name="Notify-Mode" code="20431" vendorId="81000" max="1" min="1" baseTag="39" />
+
+            <avprule name="Type_of_Charge" code="20716" vendorId="81000" max="1" min="1" baseTag="42" />
+
+            <avprule name="Transaction_ID" code="20717" vendorId="81000" max="1" min="1" baseTag="43" />
+
+            <avprule name="Subscriber_Type" code="20718" vendorId="81000" max="1" min="1" baseTag="44" />
+
+            <avprule name="Bearer_Capability" code="20719" vendorId="81000" max="1" min="1" baseTag="45" />
+
+            <avprule name="DiscountPSI" code="20720" vendorId="81000" max="1" min="1" baseTag="46" />
+
+            <avprule name="Message_ID" code="20721" vendorId="81000" max="1" min="1" baseTag="47" />
+
+            <avprule name="Message_Type" code="20722" vendorId="81000" max="1" min="1" baseTag="48" />
+
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+        <!--Following are vendor specific MDSP-Information AVP's zhanglei add-->
+
+    <GroupedAvpEntry>
+
+        <Header name="MDSP-Information" code="20500" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+      <avprule name="Message-Id" code="20501" vendorId="81000" max="1" min="1" baseTag="1"/>
+
+            <avprule name="Charge-Party-Type" code="20502" vendorId="81000" max="1" min="1" baseTag="2"/>
+
+            <avprule name="OAOperaterID" code="20512" vendorId="81000" max="1" min="1" baseTag="3"/>
+
+            <avprule name="OA-Subscription-Id" code="20511" vendorId="81000" max="1" min="1" baseTag="5"/>
+
+            <avprule name="Subscription-Id-Type" code="450" vendorId="81000" max="1" min="1" baseTag="6"/>
+
+            <avprule name="Subscription-Id-Data" code="444" vendorId="81000" max="1" min="1" baseTag="7"/>
+
+            <avprule name="DAOperaterID" code="20514" vendorId="81000" max="1" min="1" baseTag="8"/>
+
+            <avprule name="DA-Subscription-Id" code="20513" vendorId="81000" max="1" min="1" baseTag="9"/>
+
+            <avprule name="Third-Party-Subscription-Id" code="20503" vendorId="81000" max="1" min="1" baseTag="10"/>
+
+            <avprule name="SP-Id" code="20504" vendorId="81000" max="1" min="1" baseTag="11"/>
+
+            <avprule name="Sevice-Enabler-Type" code="20505" vendorId="81000" max="1" min="1" baseTag="12"/>
+
+            <avprule name="Service-Id" code="20506" vendorId="81000" max="1" min="1" baseTag="13"/>
+
+            <avprule name="Service-Type" code="20507" vendorId="81000" max="1" min="1" baseTag="14"/>
+
+            <avprule name="Content-Id" code="20508" vendorId="81000" max="1" min="1" baseTag="15"/>
+
+            <avprule name="Media-Type" code="20508" vendorId="81000" max="1" min="1" baseTag="16"/>
+
+            <avprule name="Client-IP" code="20510" vendorId="81000" max="1" min="1" baseTag="17"/>
+
+            <avprule name="BaseServiceId" code="20515" vendorId="81000" max="1" min="1" baseTag="18"/>
+
+            <avprule name="Calling-Number" code="20516" vendorId="81000" max="1" min="1" baseTag="19"/>
+
+            <avprule name="Called-Number" code="20517" vendorId="81000" max="1" min="1" baseTag="20"/>
+
+            <avprule name="UserGroup" code="20518" vendorId="81000" max="1" min="1" baseTag="21"/>
+
+            <avprule name="BearerType" code="20519" vendorId="81000" max="1" min="1" baseTag="22"/>
+
+            <avprule name="StartTime" code="20520" vendorId="81000" max="1" min="1" baseTag="23"/>
+
+            <avprule name="StopTime" code="20521" vendorId="81000" max="1" min="1" baseTag="24"/>
+
+            <avprule name="BearerProtocolType" code="20522" vendorId="81000" max="1" min="1" baseTag="25"/>
+
+            <avprule name="UsedUplinkVolume" code="20523" vendorId="81000" max="1" min="1" baseTag="26"/>
+
+            <avprule name="UsedDownlinkVolume" code="20524" vendorId="81000" max="1" min="1" baseTag="27"/>
+
+            <avprule name="APN" code="20525" vendorId="81000" max="1" min="1" baseTag="28"/>
+
+            <avprule name="SGSNIP" code="20526" vendorId="81000" max="1" min="1" baseTag="29"/>
+
+            <avprule name="ChargingID" code="20527" vendorId="81000" max="1" min="1" baseTag="30"/>
+
+            <avprule name="QOS" code="20528" vendorId="81000" max="1" min="1" baseTag="31"/>
+
+            <avprule name="URL" code="20529" vendorId="81000" max="1" min="1" baseTag="32"/>
+
+            <avprule name="SessionTimeout" code="20530" vendorId="81000" max="1" min="1" baseTag="33"/>
+
+            <avprule name="ServiceLevel" code="20531" vendorId="81000" max="1" min="1" baseTag="34"/>
+
+            <avprule name="MsgNum" code="20532" vendorId="81000" max="1" min="1" baseTag="35"/>
+
+            <avprule name="CellID" code="20533" vendorId="81000" max="1" min="1" baseTag="36"/>
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+
+    <!--Following are vendor specific RTBP-Information AVP's hejianfeng add-->
+
+    <GroupedAvpEntry>
+
+        <Header name="RTBP-Information" code="20600" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+      <avprule name="sp-id" code="20601" vendorId="81000" max="1" min="1" baseTag="1"/>
+
+            <avprule name="service-id" code="20602" vendorId="81000" max="1" min="1" baseTag="2"/>
+
+            <avprule name="msg-id" code="20603" vendorId="81000" max="1" min="1" baseTag="3"/>
+
+            <avprule name="smc-addr" code="20604" vendorId="81000" max="1" min="1" baseTag="5"/>
+
+            <avprule name="opt-type" code="20605" vendorId="81000" max="1" min="1" baseTag="6"/>
+
+            <avprule name="need-cnfm" code="20606" vendorId="81000" max="1" min="1" baseTag="7"/>
+
+            <avprule name="sessionid" code="20607" vendorId="81000" max="1" min="1" baseTag="8"/>
+
+            <avprule name="servicetype" code="20608" vendorId="81000" max="1" min="1" baseTag="9"/>
+
+            <avprule name="payer" code="20609" vendorId="81000" max="1" min="1" baseTag="10"/>
+
+            <avprule name="chargemode" code="20610" vendorId="81000" max="1" min="1" baseTag="11"/>
+
+            <avprule name="volume" code="20611" vendorId="81000" max="1" min="1" baseTag="12"/>
+
+            <avprule name="version" code="20612" vendorId="81000" max="1" min="1" baseTag="13"/>
+
+            <avprule name="smlength" code="20613" vendorId="81000" max="1" min="1" baseTag="14"/>
+
+            <avprule name="mo_mscaddr" code="20614" vendorId="81000" max="1" min="1" baseTag="15"/>
+
+            <avprule name="mt_mscaddr" code="20615" vendorId="81000" max="1" min="1" baseTag="16"/>
+
+            <avprule name="sessionactive" code="20616" vendorId="81000" max="1" min="1" baseTag="17"/>
+
+            <avprule name="src" code="20617" vendorId="81000" max="1" min="1" baseTag="18"/>
+
+            <avprule name="dst" code="20618" vendorId="81000" max="1" min="1" baseTag="19"/>
+
+            <avprule name="rate" code="20619" vendorId="81000" max="1" min="1" baseTag="20"/>
+
+            <avprule name="mstat" code="20620" vendorId="81000" max="1" min="1" baseTag="21"/>
+
+            <avprule name="msg-seq" code="20621" vendorId="81000" max="1" min="1" baseTag="22"/>
+
+            <avprule name="amount" code="20622" vendorId="81000" max="1" min="1" baseTag="23"/>
+
+            <avprule name="usedvolume" code="20623" vendorId="81000" max="1" min="1" baseTag="24"/>
+
+            <avprule name="sessioninfo" code="20624" vendorId="81000" max="1" min="1" baseTag="25"/>
+
+            <!--下面是RTBP一期新增AVP，add by huangchongfei kf8946-->
+
+            <avprule name="CDRProductID" code="20625" vendorId="81000" max="1" min="1" baseTag="26"/>
+
+            <avprule name="CDRChargeMode" code="20626" vendorId="81000" max="1" min="1" baseTag="27"/>
+
+            <avprule name="CDRTimes" code="20627" vendorId="81000" max="1" min="1" baseTag="28"/>
+
+            <avprule name="CDRDuration" code="20628" vendorId="81000" max="1" min="1" baseTag="29"/>
+
+            <avprule name="CDRVolume" code="20629" vendorId="81000" max="1" min="1" baseTag="30"/>
+
+            <avprule name="CDRCDRType" code="20630" vendorId="81000" max="1" min="1" baseTag="31"/>
+
+            <avprule name="CDRServiceType" code="20631" vendorId="81000" max="1" min="1" baseTag="32"/>
+
+            <avprule name="CDRBeginTime" code="20632" vendorId="81000" max="1" min="1" baseTag="33"/>
+
+            <avprule name="CDREndTime" code="20633" vendorId="81000" max="1" min="1" baseTag="34"/>
+
+            <avprule name="CDRPkgSpid" code="20634" vendorId="81000" max="1" min="1" baseTag="35"/>
+
+            <avprule name="CDRPkgServiceid" code="20635" vendorId="81000" max="1" min="1" baseTag="36"/>
+
+            <avprule name="CDRPkgProductid" code="20636" vendorId="81000" max="1" min="1" baseTag="37"/>
+
+            <avprule name="CDRSPName" code="20637" vendorId="81000" max="1" min="1" baseTag="38"/>
+
+            <avprule name="CDRServiceName" code="20638" vendorId="81000" max="1" min="1" baseTag="39"/>
+
+            <!--下面是RTBP二期新增AVP，add by huangchongfei kf8946-->
+
+            <avprule name="BearerType" code="20519" vendorId="81000" max="1" min="1" baseTag="40"/>
+
+            <avprule name="BearerProtocolType" code="20522" vendorId="81000" max="1" min="1" baseTag="41"/>
+
+            <avprule name="CategoryID" code="20639" vendorId="81000" max="1" min="1" baseTag="42"/>
+
+            <avprule name="ContentID" code="20640" vendorId="81000" max="1" min="1" baseTag="43"/>
+
+            <avprule name="BearService" code="20641" vendorId="81000" max="1" min="1" baseTag="44"/>
+
+            <avprule name="NetworkType" code="20642" vendorId="81000" max="1" min="1" baseTag="45"/>
+
+            <avprule name="TransctionID" code="20643" vendorId="81000" max="1" min="1" baseTag="46"/>
+
+            <!--这几个AVP的名字暂时没有用到，和别的DCC接口中定义的名字不同，修改为上面几个了-->
+            <!--avprule name="Reqfreevolume" code="20639" vendorId="81000" max="1" min="1" baseTag="42"/>
+
+            <avprule name="mdspfreevolume" code="20640" vendorId="81000" max="1" min="1" baseTag="43"/>
+
+            <avprule name="DedFreeVolume" code="20641" vendorId="81000" max="1" min="1" baseTag="44"/>
+
+            <avprule name="RestFreeVolume" code="20642" vendorId="81000" max="1" min="1" baseTag="45"/>
+
+            <avprule name="UseAmountSum" code="20643" vendorId="81000" max="1" min="1" baseTag="46"/-->
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+
+
+    <GroupedAvpEntry>
+
+        <Header name="Service-Information" code="873" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="IN-Information" code="20300" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="P2PSMS-Information" code="20400" vendorId="81000" max="1" min="1" baseTag="2" />
+
+            <avprule name="RTBP-Information" code="20600" vendorId="81000" max="1" min="1" baseTag="3" />
+
+            <avprule name="PS-Information" code="874" vendorId="81000" max="1" min="1" baseTag="4" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+     <!--Following are vendor specific TORO-Service-Information AVP's zoucaili add-->
+    <GroupedAvpEntry>
+
+       <Header name="MMS-Information" code="877" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+           <avprule name="Recipient-Address" code="1201" vendorId="81000" max="1" min="1" baseTag="1" />
+           <avprule name="Originator-Address" code="886" vendorId="81000" max="1" min="1" baseTag="2" />
+           <avprule name="Message-Size" code="1212" vendorId="81000" max="1" min="1" baseTag="3" />
+           <avprule name="Priority" code="1209" vendorId="81000" max="1" min="1" baseTag="4" />
+           <avprule name="Message-ID" code="1210" vendorId="81000" max="1" min="1" baseTag="5" />
+           <avprule name="Message-Type" code="1211" vendorId="81000" max="1" min="1" baseTag="6" />
+           <avprule name="VASP-Id" code="1101" vendorId="81000" max="1" min="1" baseTag="7" />
+           <avprule name="VAS-Id" code="1102" vendorId="81000" max="1" min="1" baseTag="8" />
+           <avprule name="service-id" code="20602" vendorId="81000" max="1" min="1" baseTag="9"/>
+           <avprule name="Submission-Time" code="1202" vendorId="81000" max="1" min="1" baseTag="10"/>
+           <avprule name="MSG-Seq" code="20802" vendorId="81000" max="1" min="1" baseTag="11"/>
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+
+        <Header name="Recipient-Address" code="1201" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+        <avprule name="Address-Type" code="899" vendorId="81000" max="1" min="1" baseTag="1" />
+        <avprule name="Address-Data" code="897" vendorId="81000" max="1" min="1" baseTag="2" />
+
+        </optional>
+
+  </GroupedAvpEntry>
+
+  <GroupedAvpEntry>
+
+        <Header name="Originator-Address" code="886" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+       <avprule name="Address-Type" code="899" vendorId="81000" max="1" min="1" baseTag="1" />
+       <avprule name="Address-Data" code="897" vendorId="81000" max="1" min="1" baseTag="2" />
+
+        </optional>
+
+  </GroupedAvpEntry>
+
+    <GroupedAvpEntry>
+        <Header name="TORO-RBT-Subscription-Configuration-Information" code="60400" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="TORO-SourceID" code="60304" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="TORO-RBT-Configuration-Data" code="60402" vendorId="81000" max="1" min="1" baseTag="2" />
+
+            <avprule name="TORO-Configuration-Channel-Type" code="60254" vendorId="81000" max="1" min="1" baseTag="3" />
+
+            <avprule name="TORO-Configuration-Channel-Data" code="60251" vendorId="81000" max="1" min="1" baseTag="4" />
+
+            <avprule name="TORO-RBT-Cost" code="60406" vendorId="81000" max="1" min="1" baseTag="5" />
+
+            <avprule name="TORO-RBT-Business-Sharing-ID" code="60556" vendorId="81000" max="1" min="1" baseTag="6" />
+
+            <avprule name="TORO-RBT-Time" code="60408" vendorId="81000" max="1" min="1" baseTag="7" />
+
+            <avprule name="TORO-ContentType" code="60352" vendorId="81000" max="1" min="1" baseTag="8" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+
+    <GroupedAvpDict>
+
+  <GroupedAvpEntry>
+
+        <Header name="TORO-MMS-Information" code="60440" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="TORO-DestinationID" code="60301" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="TORO-SourceID" code="60304" vendorId="81000" max="1" min="1" baseTag="2" />
+
+            <avprule name="TORO-SourceLocationID" code="60305" vendorId="81000" max="1" min="1" baseTag="3" />
+
+            <avprule name="TORO-AdditionalSourceID" code="60315" vendorId="81000" max="1" min="1" baseTag="4" />
+
+            <avprule name="TORO-EventTypeMMS" code="60441" vendorId="81000" max="1" min="1" baseTag="5" />
+
+            <avprule name="TORO-ContentType" code="60352" vendorId="81000" max="1" min="1" baseTag="6" />
+
+            <avprule name="TORO-ValidityPeriod" code="60357" vendorId="81000" max="1" min="1" baseTag="7" />
+
+            <avprule name="TORO-IMSI" code="60317" vendorId="81000" max="1" min="1" baseTag="8" />
+
+            <avprule name="TORO-DestinationLocationID" code="60325" vendorId="81000" max="1" min="1" baseTag="9" />
+
+            <avprule name="TORO-IMEI" code="60328" vendorId="81000" max="1" min="1" baseTag="10" />
+
+            <avprule name="TORO-MessageSize" code="60365" vendorId="81000" max="1" min="1" baseTag="11" />
+
+            <avprule name="TORO-MessagePriority" code="60444" vendorId="81000" max="1" min="1" baseTag="12" />
+
+            <avprule name="TORO-MessageDeliveryRequested" code="60366" vendorId="81000" max="1" min="1" baseTag="13" />
+
+            <avprule name="TORO-DeliveryRequested" code="60367" vendorId="81000" max="1" min="1" baseTag="14" />
+
+            <avprule name="TORO-ReadReplyReportRequested" code="60447" vendorId="81000" max="1" min="1" baseTag="15" />
+
+            <avprule name="TORO-AdditionalDestinationID" code="60422" vendorId="81000" max="1" min="1" baseTag="16" />
+
+            <avprule name="TORO-Trigger-Type" code="60100" vendorId="81000" max="1" min="1" baseTag="17" />
+
+            <avprule name="TORO-SubTriggerType" code="60331" vendorId="81000" max="1" min="1" baseTag="18" />
+
+            <avprule name="TORO-SouthboundReferenceID" code="60448" vendorId="81000" max="1" min="1" baseTag="19" />
+
+
+
+
+
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+</GroupedAvpDict>
+
+    <!--Following are vendor specific OA-Subscription-Id AVP's zhanglei add-->
+    <GroupedAvpEntry>
+
+        <Header name="OA-Subscription-Id" code="20511" flag="0" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+            <avprule name="Subscription-Id-Type" code="450" vendorId="0" max="1" min="1" baseTag="1" />
+
+            <avprule name="Subscription-Id-Data" code="444" vendorId="0" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+   <!--Following are vendor specific DA-Subscription-Id AVP's zhanglei add-->
+    <GroupedAvpEntry>
+
+        <Header name="DA-Subscription-Id" code="20513" flag="0" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+            <avprule name="Subscription-Id-Type" code="450" vendorId="0" max="1" min="1" baseTag="1" />
+
+            <avprule name="Subscription-Id-Data" code="444" vendorId="0" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+     <!--Following are vendor specific Third-Party-Subscription-Id AVP's zhanglei add-->
+    <GroupedAvpEntry>
+
+        <Header name="Third-Party-Subscription-Id" code="20503" flag="0" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+            <avprule name="Subscription-Id-Type" code="450" vendorId="0" max="1" min="1" baseTag="1" />
+
+            <avprule name="Subscription-Id-Data" code="444" vendorId="0" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+<!--For RBT&MMS Service add by zoucaili -->
+    <GroupedAvpEntry>
+
+        <Header name="TORO-SourceID" code="60304" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="TORO-IdType" code="60299" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="TORO-SourceData" code="60303" vendorId="81000" max="1" min="1" baseTag="1" />
+
+
+        </optional>
+
+  </GroupedAvpEntry>
+
+  <GroupedAvpEntry>
+
+        <Header name="TORO-Service-Information" code="60501" flag="0" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="TORO-RBT-Subscription-Configuration-Information" code="60400" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="TORO-MMS-Information" code="60440" vendorId="81000" max="1" min="1" baseTag="2" />
+
+            <avprule name="TORO-CDS-Session-Information" code="60480" vendorId="81000" max="1" min="1" baseTag="3" />
+
+            <avprule name="TORO-Furnished-Charging-Trigger-Information" code="60555" vendorId="81000" max="1" min="1" baseTag="4" />
+
+            <avprule name="TORO-Furnished-Charging-Information" code="60449" vendorId="81000" max="1" min="1" baseTag="4" />
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+  <GroupedAvpEntry>
+
+        <Header name="TORO-SourceLocationID" code="60305" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="TORO-Location-Type" code="60313" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="TORO-Location-Data" code="60306" vendorId="81000" max="1" min="1" baseTag="2" />
+
+
+        </optional>
+
+    </GroupedAvpEntry>
+
+  <GroupedAvpEntry>
+
+        <Header name="TORO-DestinationID" code="60301" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="TORO-IdType" code="60299" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="TORO-DestinationData" code="60302" vendorId="81000" max="1" min="1" baseTag="2" />
+
+        </optional>
+
+  </GroupedAvpEntry>
+  <GroupedAvpEntry>
+
+        <Header name="TORO-AdditionalSourceID" code="60315" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+            <avprule name="TORO-IdType" code="60299" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="TORO-AdditionalSourceData" code="60308" vendorId="81000" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+  </GroupedAvpEntry>
+
+  <GroupedAvpEntry>
+
+        <Header name="TORO-DestinationLocationID" code="60325" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+            <avprule name="TORO-Location-Type" code="60313" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="TORO-Location-Data" code="60306" vendorId="81000" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+  </GroupedAvpEntry>
+
+  <GroupedAvpEntry>
+
+        <Header name="TORO-AdditionalDestinationID" code="60422" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+            <avprule name="TORO-IdType" code="60299" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="TORO-AdditionalDestinationData" code="60423" vendorId="81000" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+  </GroupedAvpEntry>
+
+  <GroupedAvpEntry>
+
+        <Header name="TORO-RBT-Business-Sharing-ID" code="60556" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+            <avprule name="TORO-RBT-Business-Sharing-Type" code="60409" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="TORO-RBT-Business-Sharing-Name" code="60557" vendorId="81000" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+  </GroupedAvpEntry>
+
+  <GroupedAvpEntry>
+
+        <Header name="PS-Furnish-Charging-Information" code="865" flag="128" vendorId="81000" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+            <avprule name="GPP-Charging-Id" code="2" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="PS-Free-Format-Data" code="866" vendorId="81000" max="1" min="1" baseTag="2" />
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+  </GroupedAvpEntry>
+
+  <GroupedAvpEntry>
+
+        <Header name="TORO-CDS-Session-Information" code="60480" flag="0" vendorId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+            <avprule name="TORO-DestinationID" code="60301" vendorId="81000" max="1" min="1" baseTag="1" />
+
+            <avprule name="TORO-SourceID" code="60304" vendorId="81000" max="1" min="1" baseTag="2" />
+
+            <avprule name="TORO-SourceLocationID" code="60305" vendorId="81000" max="1" min="1" baseTag="3" />
+
+            <avprule name="TORO-AdditionalSourceID" code="60315" vendorId="81000" max="1" min="1" baseTag="4" />
+
+            <avprule name="TORO-ContentType" code="60352" vendorId="81000" max="1" min="1" baseTag="5" />
+
+            <avprule name="TORO-ValidityPeriod" code="60357" vendorId="81000" max="1" min="1" baseTag="6" />
+
+            <avprule name="TORO-EventTypeCDS" code="60481" vendorId="81000" max="1" min="1" baseTag="7" />
+
+            <avprule name="TORO-DestinationLocationID" code="60325" vendorId="81000" max="1" min="1" baseTag="8" />
+
+            <avprule name="TORO-MessageSize" code="60365" vendorId="81000" max="1" min="1" baseTag="9" />
+
+            <avprule name="TORO-AdditionalDestinationID" code="60422" vendorId="81000" max="1" min="1" baseTag="10" />
+
+            <avprule name="TORO-Trigger-Type" code="60100" vendorId="81000" max="1" min="1" baseTag="11" />
+
+            <avprule name="TORO-SubTriggerType" code="60331" vendorId="81000" max="1" min="1" baseTag="12" />
+
+            <avprule name="TORO-SouthboundReferenceID" code="60448" vendorId="81000" max="1" min="1" baseTag="13" />
+        </optional>
+
+    </GroupedAvpEntry>
+
+
+</GroupedAvpDict>
+
+
+
+<CommandDict>
+
+    <CommandEntry>
+
+        <Header name="ASR" code="274" RBit="1" PBit="0" appId="4" />
+
+        <fixed>
+
+            <avprule name="Session-Id" code="263" vendorId="0" max="1" min="1" baseTag="1" />
+
+        </fixed>
+
+        <required>
+
+            <avprule name="Origin-Host" code="264" vendorId="0" max="1" min="1" baseTag="2" />
+
+            <avprule name="Origin-Realm" code="296" vendorId="0" max="1" min="1" baseTag="3" />
+
+            <avprule name="Destination-Host" code="293" vendorId="0" max="1" min="1" baseTag="4" />
+
+            <avprule name="Destination-Realm" code="283" vendorId="0" max="1" min="1" baseTag="5" />
+
+            <avprule name="Auth-Application-Id" code="258" vendorId="0" max="1" min="1" baseTag="6" />
+
+        </required>
+
+        <optional>
+
+            <avprule name="User-Name" code="1" vendorId="0" max="1" min="1" baseTag="11" />
+
+            <avprule name="Origin-State-Id" code="278" vendorId="0" max="1" min="1" baseTag="12" />
+
+            <avprule name="Proxy-Info" code="284" vendorId="0" max="1" min="1" baseTag="20" />
+
+            <avprule name="Route-Record" code="282" vendorId="0" max="10" min="1" baseTag="35" />
+
+        </optional>
+
+    </CommandEntry>
+
+    <CommandEntry>
+
+        <Header name="ASA" code="274" RBit="0" PBit="0" appId="4" />
+
+        <fixed>
+
+            <avprule name="Session-Id" code="263" vendorId="0" max="1" min="1" baseTag="1" />
+
+        </fixed>
+
+        <required>
+
+            <avprule name="Result-Code" code="268" vendorId="0" max="1" min="1" baseTag="98" />
+
+            <avprule name="Origin-Host" code="264" vendorId="0" max="1" min="1" baseTag="2" />
+
+            <avprule name="Origin-Realm" code="296" vendorId="0" max="1" min="1" baseTag="3" />
+
+        </required>
+
+        <optional>
+
+            <avprule name="User-Name" code="1" vendorId="0" max="1" min="1" baseTag="11" />
+
+            <avprule name="Origin-State-Id" code="278" vendorId="0" max="1" min="1" baseTag="12" />
+
+            <avprule name="Error-Message" code="281" vendorId="0" max="1" min="1" baseTag="8" />
+
+            <avprule name="Error-Reporting-Host" code="294" vendorId="0" max="1" min="1" baseTag="9" />
+
+            <avprule name="Redirect-Host" code="292" vendorId="0" max="2" min="1" baseTag="50" />
+
+            <avprule name="Redirect-Host-Usage" code="261" vendorId="0" max="2" min="1" baseTag="15" />
+
+            <avprule name="Redirect-Max-Cache-Time" code="262" vendorId="0" max="2" min="1" baseTag="18" />
+
+            <avprule name="Proxy-Info" code="284" vendorId="0" max="2" min="1" baseTag="20" />
+
+        </optional>
+
+    </CommandEntry>
+
+    <CommandEntry>
+
+        <Header name="CCR" code="272" RBit="1" PBit="0" appId="4" />
+
+        <fixed>
+
+            <avprule name="Session-Id" code="263" vendorId="0" max="1" min="1" baseTag="1" />
+
+        </fixed>
+
+        <required>
+
+            <avprule name="Origin-Host" code="264" vendorId="0" max="1" min="1" baseTag="2" />
+
+            <avprule name="Origin-Realm" code="296" vendorId="0" max="1" min="1" baseTag="3" />
+
+            <avprule name="Destination-Realm" code="283" vendorId="0" max="1" min="1" baseTag="5" />
+
+            <avprule name="Auth-Application-Id" code="258" vendorId="0" max="1" min="1" baseTag="6" />
+
+            <avprule name="Service-Context-Id" code="461" vendorId="0" max="1" min="1" baseTag="7" />
+
+            <avprule name="CC-Request-Type" code="416" vendorId="0" max="1" min="1" baseTag="8" />
+
+            <avprule name="CC-Request-Number" code="415" vendorId="0" max="1" min="1" baseTag="9" />
+
+        </required>
+
+        <optional>
+
+            <avprule name="Destination-Host" code="293" vendorId="0" max="1" min="1" baseTag="4" />
+
+            <avprule name="CC-Sub-Session-Id" code="419" vendorId="0" max="1" min="1" baseTag="10" />
+
+            <avprule name="Origin-State-Id" code="278" vendorId="0" max="1" min="1" baseTag="12" />
+
+            <avprule name="Route-Record" code="282" vendorId="0" max="10" min="1" baseTag="35" />
+
+            <avprule name="User-Name" code="1" vendorId="0" max="1" min="1" baseTag="11" />
+
+            <avprule name="Event-Timestamp" code="55" vendorId="0" max="1" min="1" baseTag="13" />
+
+            <avprule name="Subscription-Id" code="443" vendorId="0" max="10" min="1" baseTag="14" />
+
+            <avprule name="Service-Identifier" code="439" vendorId="0" max="1" min="1" baseTag="33" />
+
+            <avprule name="Termination-Cause" code="295" vendorId="0" max="1" min="1" baseTag="34" />
+
+            <avprule name="Requested-Action" code="436" vendorId="0" max="1" min="1" baseTag="54" />
+
+            <avprule name="Requested-Service-Unit" code="437" vendorId="0" max="1" min="1" baseTag="55" />
+
+            <avprule name="PS-Information" code="874" vendorId="0" max="1" min="1" baseTag="55" />
+            <avprule name="Used-Service-Unit" code="446" vendorId="0" max="10" min="1" baseTag="56" />
+
+            <avprule name="Multiple-Services-Indicator" code="455" vendorId="0" max="1" min="1" baseTag="75" />
+
+            <avprule name="Multiple-Services-Credit-Control" code="456" vendorId="0" max="10" min="1" baseTag="76" />
+
+            <avprule name="CC-Correlation-Id" code="411" vendorId="0" max="1" min="1" baseTag="95" />
+
+            <avprule name="Validity-Time" code="448" vendorId="0" max="1" min="1" baseTag="96" />
+
+            <avprule name="Service-Information" code="873" vendorId="81000" max="1" min="1" baseTag="97" />
+
+            <avprule name="Proxy-Info" code="284" vendorId="0" max="1" min="1" baseTag="137" />
+
+            <avprule name="User-Equipment-Info" code="458" vendorId="0" max="1" min="1" baseTag="138" />
+
+            <avprule name="TORO-Service-Information" code="60501" vendorId="81000" max="1" min="1" baseTag="98" />
+
+
+        </optional>
+
+    </CommandEntry>
+
+    <CommandEntry>
+
+        <Header name="CCA" code="272" RBit="0" PBit="0" appId="4" />
+
+        <fixed>
+
+            <avprule name="Session-Id" code="263" vendorId="0" max="1" min="1" baseTag="1" />
+
+        </fixed>
+
+        <required>
+
+            <avprule name="Result-Code" code="268" vendorId="0" max="1" min="1" baseTag="98" />
+
+            <avprule name="Origin-Host" code="264" vendorId="0" max="1" min="1" baseTag="2" />
+
+            <avprule name="Origin-Realm" code="296" vendorId="0" max="1" min="1" baseTag="3" />
+
+            <avprule name="Auth-Application-Id" code="258" vendorId="0" max="1" min="1" baseTag="6" />
+
+            <avprule name="CC-Request-Type" code="416" vendorId="0" max="1" min="1" baseTag="8" />
+
+            <avprule name="CC-Request-Number" code="415" vendorId="0" max="1" min="1" baseTag="9" />
+
+        </required>
+
+        <optional>
+
+            <avprule name="User-Name" code="1" vendorId="0" max="1" min="1" baseTag="11" />
+
+            <avprule name="CC-Sub-Session-Id" code="419" vendorId="0" max="1" min="1" baseTag="10" />
+
+            <avprule name="CC-Session-Failover" code="418" vendorId="0" max="1" min="1" baseTag="99" />
+
+            <avprule name="Origin-State-Id" code="278" vendorId="0" max="1" min="1" baseTag="12" />
+
+            <avprule name="Event-Timestamp" code="55" vendorId="0" max="1" min="1" baseTag="13" />
+
+            <avprule name="Granted-Service-Unit" code="431" vendorId="0" max="1" min="1" baseTag="100" />
+
+            <avprule name="Time-Quota-Threshold" code="868" vendorId="10415" max="1" min="1" baseTag="101" />
+
+            <avprule name="Volume-Quota-Threshold" code="869" vendorId="10415" max="1" min="1" baseTag="102" />
+
+            <avprule name="Cost-Information" code="423" vendorId="81000" max="10" min="1" baseTag="140" />
+
+            <avprule name="Final-Unit-Indication" code="430" vendorId="0" max="1" min="1" baseTag="104" />
+
+            <avprule name="Check-Balance-Result" code="422" vendorId="0" max="1" min="1" baseTag="105" />
+
+            <avprule name="Credit-Control-Failure-Handling" code="427" vendorId="0" max="1" min="1" baseTag="106" />
+
+            <avprule name="Validity-Time" code="448" vendorId="0" max="1" min="1" baseTag="96" />
+
+            <avprule name="Trigger-Type" code="870" vendorId="10415" max="10" min="1" baseTag="107" />
+
+            <avprule name="Direct-Debiting-Failure-Handling" code="428" vendorId="0" max="1" min="1" baseTag="126" />
+
+            <avprule name="Multiple-Services-Credit-Control" code="456" vendorId="0" max="10" min="1" baseTag="76" />
+
+            <avprule name="Route-Record" code="282" vendorId="0" max="10" min="1" baseTag="35" />
+
+            <avprule name="Service-Information" code="873" vendorId="81000" max="1" min="1" baseTag="97" />
+
+            <avprule name="Proxy-Info" code="284" vendorId="0" max="1" min="1" baseTag="137" />
+
+            <avprule name="TORO-Service-Information" code="60501" vendorId="81000" max="1" min="1" baseTag="98" /> <!--add by zoucaili-->
+
+        </optional>
+
+    </CommandEntry>
+    <!--下面是协议栈用到的命令字(Add by whg59747)-->
+    <CommandEntry>
+
+        <Header name="CER" code="257" RBit="1" PBit="0" appId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+    </CommandEntry>
+    <CommandEntry>
+
+        <Header name="CEA" code="257" RBit="0" PBit="0" appId="0" />
+
+        <fixed>
+
+        </fixed>
+
+        <required>
+
+        </required>
+
+        <optional>
+
+        </optional>
+
+    </CommandEntry>
+
+
+
+</CommandDict>
+
+
+</DiameterDict>

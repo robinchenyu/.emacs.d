@@ -77,18 +77,20 @@
 
 
 ;; fix magit-stage-untracked errors when chinese file name encoding failed
-(defun code-convert (str1 fr to)
+(defun code-convert (fr to str1)
   (if (stringp str1)
-      (encode-coding-string (decode-coding-string str fr) to)
+      (encode-coding-string (decode-coding-string str1 fr) to)
     (mapcar (lambda (x)
               (encode-coding-string (decode-coding-string x fr) to)) str1)))
+
+(defalias 'get-cmd-encoding (apply-partially 'code-convert 'utf-8 'gbk))
 
 (defun git-add-encode (&rest args)
   (message "git-add-encode %S" args)
   (let ((x (-flatten args)))
     (if (string= (car x) "add")
-        (append (butlast x)
-                (code-convert (last x) 'utf-8 'gbk))
+        ;; only "add" "--" parameters no need convert
+        (get-cmd-encoding x)
       args)))
 
 (advice-add #'magit-call-git :filter-args #'git-add-encode)

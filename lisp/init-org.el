@@ -501,7 +501,7 @@ BEG and END default to the buffer boundaries."
             (let ((file-thumb (format "%s%st.png" (file-name-directory file) (file-name-base file) "t.png")))
               (unless (file-exists-p file-thumb)
                 (shell-command (format "convert %s -thumbnail %sx%s %s"
-                                       (code-convert file 'utf-8 'gbk) width width (code-convert file-thumb 'utf-8 'gbk))))
+                                       (get-cmd-encoding file) width width (get-cmd-encoding file-thumb))))
               (if (and (car-safe old) refresh)
                   (image-refresh (overlay-get (cdr old) 'display))
                 (setq img (save-match-data (create-image file-thumb)))

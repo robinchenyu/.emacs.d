@@ -37,10 +37,7 @@
   (interactive "*P")
   (let* ((file-name (mkdir-get-buffer-pic-name))
          (buf-str (format "[[%s]]" (replace-home-prefix file-name)))
-         (ret (call-process "python3" nil "*ImagePaste*" nil ip-script-path (code-convert
-                                                                             file-name
-                                                                             'utf-8
-                                                                             'gbk))))
+         (ret (call-process "python3" nil "*ImagePaste*" nil ip-script-path (get-cmd-encoding file-name))))
     (if (= ret 0)
         (progn
           (message "success")
