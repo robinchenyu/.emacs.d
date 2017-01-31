@@ -8,10 +8,15 @@ except ImportError:
 	from PIL import ImageGrab
 	from PIL import ImageFile
 
+def mkdir_safe(filename):
+	dir_name = os.path.dirname(filename)
+	if not os.path.exists(dir_name):
+		os.mkdir(dir_name)
 
 def paste(file_name):
 	ImageFile.LOAD_TRUNCATED_IMAGES = True
 	fullname = file_name
+	mkdir_safe(file_name)
 	im = ImageGrab.grabclipboard()
 	if im:
 		ret = im.save(fullname,'jpeg')

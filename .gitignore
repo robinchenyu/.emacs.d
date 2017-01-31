@@ -4,8 +4,8 @@
 /.session
 /session.*
 /custom.el
+anaconda-mode/*
 *.elc
-**/*.pyc
 CVS
 .svn
 *~
@@ -43,6 +43,5 @@ site-lisp/package/
 /recentf
 /viper
 /projectile-bookmarks.eld
-/anaconda-mode/
 projectile.cache
 server/

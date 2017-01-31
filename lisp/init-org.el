@@ -341,8 +341,7 @@ typical word processor."
 (after-load 'org
   (org-babel-do-load-languages
    'org-babel-load-languages
-   `((R . t)
-     (ditaa . t)
+   `((ditaa . t)
      (dot . t)
      (emacs-lisp . t)
      (gnuplot . t)
@@ -454,6 +453,7 @@ Return one of the entries in index-alist or nil."
           (imenu--completion-buffer (cdr choice) prompt)
         choice))))
 
+;; imenu no need every level in multi time select
 (advice-add #'imenu--in-alist :override #'imenu--in-alist2)
 (advice-add #'imenu--completion-buffer :override #'imenu--completion-buffer2)
 
@@ -514,6 +514,7 @@ BEG and END default to the buffer boundaries."
                                (list 'org-display-inline-remove-overlay))
                   (push ov org-inline-image-overlays))))))))))
 
+;; display thumb pic in org buffer
 (advice-add #'org-display-inline-images :override #'org-display-inline-images-thumb)
 
 
@@ -523,4 +524,44 @@ BEG and END default to the buffer boundaries."
   (other-window 1))
 (global-set-key (kbd "M-<f9>") 'org-preview-pic)
 
+;; ------------------------------------------------------------------------------------
+;; config for org-page
+;; ------------------------------------------------------------------------------------
+;; require install org-plus-contrib
+(require 'org-page)
+(setq op/repository-directory "~/pp")
+(setq op/site-domain "http://blog912.cn")
+(setq op/personal-github-link "https://github.com/robinchenyu")
+(setq op/site-main-title "The Blog")
+(setq op/site-sub-title "Emacs, Programming")
+;; (setq op/personal-disqus-shortname "theblog")
+(setq op/category-config-alist
+      '(("blog" ;; this is the default configuration
+         :show-meta t
+         :show-comment t
+         :uri-generator op/generate-uri
+         :uri-template "/blog/%y/%m/%d/%t/"
+         :sort-by :date     ;; how to sort the posts
+         :category-index t) ;; generate category index or not
+        ("wiki"
+         :show-meta t
+         :show-comment nil
+         :uri-generator op/generate-uri
+         :uri-template "/wiki/%t/"
+         :sort-by :mod-date
+         :category-index t)
+        ("index"
+         :show-meta nil
+         :show-comment nil
+         :uri-generator op/generate-uri
+         :uri-template "/"
+         :sort-by :date
+         :category-index nil)
+        ("about"
+         :show-meta nil
+         :show-comment nil
+         :uri-generator op/generate-uri
+         :uri-template "/about/"
+         :sort-by :date
+         :category-index nil)))
 (provide 'init-org)
