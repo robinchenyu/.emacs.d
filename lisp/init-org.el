@@ -20,7 +20,8 @@
       org-fast-tag-selection-single-key 'expert
       org-html-validation-link nil
       org-export-kill-product-buffer-when-displayed t
-      org-tags-column 80)
+      org-tags-column 80
+      org-imenu-depth 3)
 
 
 ;; Lots of stuff from http://doc.norang.ca/org-mode.html
@@ -534,6 +535,8 @@ BEG and END default to the buffer boundaries."
 (setq op/personal-github-link "https://github.com/robinchenyu")
 (setq op/site-main-title "The Blog")
 (setq op/site-sub-title "Emacs, Programming")
+(setq op/theme 'emacs_love)
+(setq op/theme-root-directory "c:/msys64/home/chenyu/.emacs.d/themes/")
 ;; (setq op/personal-disqus-shortname "theblog")
 (setq op/category-config-alist
       '(("blog" ;; this is the default configuration
@@ -564,4 +567,5 @@ BEG and END default to the buffer boundaries."
          :uri-template "/about/"
          :sort-by :date
          :category-index nil)))
+
 (provide 'init-org)

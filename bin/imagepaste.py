@@ -16,9 +16,9 @@ def mkdir_safe(filename):
 def paste(file_name):
 	ImageFile.LOAD_TRUNCATED_IMAGES = True
 	fullname = file_name
-	mkdir_safe(file_name)
 	im = ImageGrab.grabclipboard()
 	if im:
+		mkdir_safe(file_name)
 		ret = im.save(fullname,'jpeg')
 		return "%s" % (fullname)
 	else:
