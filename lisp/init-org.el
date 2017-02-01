@@ -537,6 +537,7 @@ BEG and END default to the buffer boundaries."
 (setq op/site-sub-title "Emacs, Programming")
 (setq op/theme 'emacs_love)
 (setq op/theme-root-directory "c:/msys64/home/chenyu/.emacs.d/themes/")
+%
 ;; (setq op/personal-disqus-shortname "theblog")
 (setq op/category-config-alist
       '(("blog" ;; this is the default configuration
