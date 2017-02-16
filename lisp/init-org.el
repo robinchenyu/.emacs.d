@@ -537,7 +537,7 @@ BEG and END default to the buffer boundaries."
 (setq op/site-sub-title "Emacs, Programming")
 (setq op/theme 'emacs_love)
 (setq op/theme-root-directory "c:/msys64/home/chenyu/.emacs.d/themes/")
-%
+
 ;; (setq op/personal-disqus-shortname "theblog")
 (setq op/category-config-alist
       '(("blog" ;; this is the default configuration
@@ -568,5 +568,9 @@ BEG and END default to the buffer boundaries."
          :uri-template "/about/"
          :sort-by :date
          :category-index nil)))
+
+;; ----------------------------------------------------------------------
+;; set for mobileorg
+(setq org-mobile-directory "c:/users/chenyu/Dropbox/Apps/MobileOrg")
 
 (provide 'init-org)

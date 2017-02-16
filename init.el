@@ -160,6 +160,7 @@
 
 (provide 'init)
 
+(server-mode t)
 ;; Local Variables:
 ;; coding: utf-8
 ;; no-byte-compile: t
