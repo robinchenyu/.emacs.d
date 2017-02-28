@@ -573,5 +573,4 @@ BEG and END default to the buffer boundaries."
 ;; set for mobileorg
 (setq org-mobile-directory "c:/users/chenyu/Dropbox/Apps/MobileOrg")
 
-(require 'pri-gcal)
 (provide 'init-org)
