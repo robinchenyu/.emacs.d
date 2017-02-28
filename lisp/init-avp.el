@@ -106,7 +106,7 @@
 
 (defun avp-display-atom (code val)
   (let ((v (lax-plist-get avp-codelist code)))
-    (cond ((member (nth 2 v) '("Integer32" "Unsigned32" "Integer64" "Unsigned64"))          (cons (nth 1 v) (string-to-number val 16)))
+    (cond ((member (nth 2 v) '("Integer32" "Unsigned32" "Integer64" "Unsigned64")) (cons (nth 1 v) (string-to-number val 16)))
           ((member (nth 2 v) '("OctetString")) (cons (nth 1 v) (decode-hex-string val)))
           ((equal (nth 2 v) "Group") (let ((subval (avp-decode-body val t)))
                                        (cons (nth 1 v) subval)))
